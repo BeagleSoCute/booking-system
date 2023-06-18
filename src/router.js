@@ -10,7 +10,7 @@ import { AppProvider } from "contexts/app.context";
 import LoginAndRegisterLayout from "layouts/LoginAndRegisterLayout";
 import { checkIsAuth } from "helpers/auth.helper";
 import { notification } from "helpers/notification.helper";
-
+import BookingPage from "smart/Booking/smart/BookingPage"
 import PrivateRoute from "smart/PrivateRoute";
 
 export const router = createBrowserRouter([
@@ -23,6 +23,7 @@ export const router = createBrowserRouter([
     ),
     //   errorElement: <ErrorPage />,
     children: [
+      {path: "/", element: <BookingPage/>},
       { path: "/logout", element: <Logout /> },
       {
         path: "/dashboard",

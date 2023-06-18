@@ -9,13 +9,13 @@ import { Outlet } from "react-router-dom";
 const { Header } = Layout;
 
 const authenMenu = [
-  { key: 1, label: "Home", path: "/" },
+  { key: 1, label: "Booking", path: "/" },
   { key: 2, label: "Dashboard", path: "/dashboard" },
   { key: 3, label: "Profile", path: "/profile" },
   { key: 4, label: "Logout", path: "/logout" },
 ];
 const notAuthenMenu = [
-  { key: 5, label: "Home", path: "/" },
+  { key: 5, label: "Booking", path: "/" },
   { key: 6, label: "Dashboard", path: "/dashboard" },
   { key: 7, label: "Login", path: "/login" },
   { key: 8, label: "Register", path: "/register" },
