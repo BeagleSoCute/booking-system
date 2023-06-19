@@ -1,6 +1,7 @@
 import React from "react";
 import { Alert } from "antd";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+import styled from "styled-components";
 
 const propTypes = {
   type: "success" || "error" || "info" || "warning",
@@ -10,9 +11,19 @@ const defaultProps = {
   type: "success",
 };
 
-const AlertMessage = ({ type }) => <Alert message={message} type={type} />;
+const AlertMessage = ({ type, message }) => (
+  <StyledAlert className="ant-alert" message={message} type={type} />
+);
 
 AlertMessage.propTypes = propTypes;
 AlertMessage.defaultProps = defaultProps;
 
-export default App;
+const StyledAlert = styled(Alert)`
+  &.ant-alert {
+    .ant-alert-message {
+      display: flex;
+      justify-content: center;
+    }
+  }
+`;
+export default AlertMessage;
