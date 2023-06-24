@@ -4,6 +4,7 @@ import { Button, Form, Input, Select, InputNumber } from "antd";
 const OrderDrinkForm = ({onAdd}) => {
   const [form] = Form.useForm();
   const handleAdd = (value) => {
+    form.resetFields();
     onAdd(value)
   }
   return (
@@ -37,7 +38,8 @@ const OrderDrinkForm = ({onAdd}) => {
             ]}
           />
         </Form.Item>
-        <Form.Item label="Amount" name="amount">
+        <Form.Item label="Amount" name="amount"           rules={[{ required: true, message: "" }]}
+>
           <InputNumber className="w-full" />
         </Form.Item>
         <Form.Item label="Specification" name="specification">

@@ -1,11 +1,12 @@
 import React from "react";
 import { Button, Form, Input, Select, InputNumber } from "antd";
 
-const OrderFoodForm = ({onAdd}) => {
+const OrderFoodForm = ({ onAdd }) => {
   const [form] = Form.useForm();
   const handleAdd = (value) => {
+    form.resetFields();
     onAdd(value);
-  }
+  };
   return (
     <Form
       form={form}
@@ -75,7 +76,11 @@ const OrderFoodForm = ({onAdd}) => {
             ]}
           />
         </Form.Item>
-        <Form.Item label="Amount" name="amount">
+        <Form.Item
+          label="Amount"
+          name="amount"
+          rules={[{ required: true, message: "" }]}
+        >
           <InputNumber className="w-full" />
         </Form.Item>
         <Form.Item label="Specification" name="specification">

@@ -1,63 +1,16 @@
 import React, { useState, Fragment, useId  } from "react";
 import styled from "styled-components";
-import {  Form } from "antd";
+import { Button, Form } from "antd";
 import BookingForm from "smart/Booking/components/BookingForm";
 import AlertMessage from "components/common/AlertMessage";
 import OrderFoodForm from "./OrderFoodForm";
 import OrderDrinkForm from "./OrderDrinkForm";
 import TableData from "components/common/TableData";
 import {v4 as uuidv4} from 'uuid';
+import { DeleteOutlined } from '@ant-design/icons';
 
-const columnsFood = [
-  {
-    title: 'Food',
-    dataIndex: 'food',
-    key: 'food',
-  },
-  {
-    title: 'Choice of meat',
-    dataIndex: 'choiceOfMeat',
-    key: 'choiceOfMeat',
-  },
-  {
-    title: 'Amount',
-    dataIndex: 'amount',
-    key: 'amount',
-  }, 
-  {
-    title: 'Specification',
-    dataIndex: 'specification',
-    key: 'specification',
-  }, 
-  {
-    title: 'Delete',
-    dataIndex: 'delete',
-    key: 'delete',
-  }, 
-];
 
-const columnsDrink = [
-  {
-    title: 'Drink',
-    dataIndex: 'drink',
-    key: 'food',
-  },
-  {
-    title: 'Amount',
-    dataIndex: 'amount',
-    key: 'amount',
-  }, 
-  {
-    title: 'Specification',
-    dataIndex: 'specification',
-    key: 'specification',
-  }, 
-  {
-    title: 'Delete',
-    dataIndex: 'delete',
-    key: 'delete',
-  }, 
-];
+
 const BookingSection = ({ isConfirm, onFinish }) => {
   const [form] = Form.useForm();
   const [selectOrder, setSelectOrder] = useState("");
@@ -87,6 +40,85 @@ const BookingSection = ({ isConfirm, onFinish }) => {
     }
     setOrderFoodDetails([...orderFoodDetails,transformData]);
   };
+
+
+  const handleDeleteFood = (data) => {
+    console.log('data',data)
+    const id = data.id 
+   const result = orderFoodDetails.filter(item => item.id !== id); 
+   setOrderFoodDetails(result);
+    }
+  
+  
+  const columnsFood = [
+    {
+      title: 'Food',
+      dataIndex: 'food',
+      key: 'food',
+    },
+    {
+      title: 'Choice of meat',
+      dataIndex: 'choiceOfMeat',
+      key: 'choiceOfMeat',
+    },
+    {
+      title: 'Amount',
+      dataIndex: 'amount',
+      key: 'amount',
+    }, 
+    {
+      title: 'Specification',
+      dataIndex: 'specification',
+      key: 'specification',
+    }, 
+    {
+      title: 'Delete',
+      key: 'actions',
+      render: (text, record) => (
+        <Button
+          type="link"
+          icon={<DeleteOutlined />}
+          onClick={() => handleDeleteFood(record)}
+        >
+          Delete
+        </Button>
+      ),
+  
+    }, 
+  ];
+  
+  const columnsDrink = [
+    {
+      title: 'Drink',
+      dataIndex: 'drink',
+      key: 'food',
+    },
+    {
+      title: 'Amount',
+      dataIndex: 'amount',
+      key: 'amount',
+    }, 
+    {
+      title: 'Specification',
+      dataIndex: 'specification',
+      key: 'specification',
+    }, 
+    {
+      title: 'Delete',
+      key: 'actions',
+      render: (text, record) => (
+        <Button
+          type="link"
+          icon={<DeleteOutlined />}
+          onClick={() => this.handleDelete(record)}
+        >
+          Delete
+        </Button>
+      ),
+  
+    }, 
+  ];
+
   return (
     <StyledDiv className="booking-section">
       <BookingForm form={form} onFinish={handleSubmit} />
@@ -123,10 +155,11 @@ const BookingSection = ({ isConfirm, onFinish }) => {
             ></ion-icon>
           </div>
         </div>
-        <TableData data={orderFoodDetails} columns={columnsFood} />
-        <TableData data={orderDrinkDetails} columns={columnsDrink} />
-
         {selectOrder === "food" ? <OrderFoodForm onAdd={handleAddOrderFood} /> : selectOrder === "drink" ? <OrderDrinkForm  onAdd={handleAddOrderDrink}/>: null}
+        <h1 className="text-2xl mt-5">Order your food</h1>
+        <TableData data={orderFoodDetails} columns={columnsFood} />
+        <h1 className="text-2xl mt-5">Order your drink</h1>
+        <TableData data={orderDrinkDetails} columns={columnsDrink} />
       </Fragment>
     </StyledDiv>
   );

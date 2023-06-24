@@ -36,7 +36,6 @@ import { Table } from "antd";
 
 
 const TableData = ({ columns, data }) => {
-  console.log('table data',data)
   return (
     <div style={{ wordWrap: 'break-word', wordBreak: 'break-word' }}>
       <Table columns={columns} dataSource={data} />
