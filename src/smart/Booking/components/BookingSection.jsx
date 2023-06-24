@@ -1,15 +1,91 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useId  } from "react";
 import styled from "styled-components";
-import { Button, Form, Input, DatePicker, InputNumber, Row, Col } from "antd";
+import {  Form } from "antd";
 import BookingForm from "smart/Booking/components/BookingForm";
 import AlertMessage from "components/common/AlertMessage";
 import OrderFoodForm from "./OrderFoodForm";
+import OrderDrinkForm from "./OrderDrinkForm";
+import TableData from "components/common/TableData";
+import {v4 as uuidv4} from 'uuid';
 
+const columnsFood = [
+  {
+    title: 'Food',
+    dataIndex: 'food',
+    key: 'food',
+  },
+  {
+    title: 'Choice of meat',
+    dataIndex: 'choiceOfMeat',
+    key: 'choiceOfMeat',
+  },
+  {
+    title: 'Amount',
+    dataIndex: 'amount',
+    key: 'amount',
+  }, 
+  {
+    title: 'Specification',
+    dataIndex: 'specification',
+    key: 'specification',
+  }, 
+  {
+    title: 'Delete',
+    dataIndex: 'delete',
+    key: 'delete',
+  }, 
+];
+
+const columnsDrink = [
+  {
+    title: 'Drink',
+    dataIndex: 'drink',
+    key: 'food',
+  },
+  {
+    title: 'Amount',
+    dataIndex: 'amount',
+    key: 'amount',
+  }, 
+  {
+    title: 'Specification',
+    dataIndex: 'specification',
+    key: 'specification',
+  }, 
+  {
+    title: 'Delete',
+    dataIndex: 'delete',
+    key: 'delete',
+  }, 
+];
 const BookingSection = ({ isConfirm, onFinish }) => {
   const [form] = Form.useForm();
   const [selectOrder, setSelectOrder] = useState("");
+  const [orderDrinkDetails, setOrderDrinkDetails] = useState([]);
+  const [orderFoodDetails, setOrderFoodDetails] = useState([]);
+
   const handleSubmit = () => {
     onFinish();
+  };
+  const handleAddOrderDrink = (data) => {
+    console.log('data on handleAddOrder',data);
+    console.log('orderDetails',orderDrinkDetails);
+    const transformData = {
+      ...data,
+      id:uuidv4()
+    }
+    setOrderDrinkDetails([...orderDrinkDetails,transformData]);
+  };
+  const handleAddOrderFood = (data) => {
+    console.log('data on handleAddOrder',data);
+    console.log('orderDetails',orderFoodDetails);
+    console.log('orderDetails',orderFoodDetails);
+    const transformData = {
+      ...data,
+      amount:data.amount,
+      id:uuidv4()
+    }
+    setOrderFoodDetails([...orderFoodDetails,transformData]);
   };
   return (
     <StyledDiv className="booking-section">
@@ -47,7 +123,10 @@ const BookingSection = ({ isConfirm, onFinish }) => {
             ></ion-icon>
           </div>
         </div>
-       < OrderFoodForm/>
+        <TableData data={orderFoodDetails} columns={columnsFood} />
+        <TableData data={orderDrinkDetails} columns={columnsDrink} />
+
+        {selectOrder === "food" ? <OrderFoodForm onAdd={handleAddOrderFood} /> : selectOrder === "drink" ? <OrderDrinkForm  onAdd={handleAddOrderDrink}/>: null}
       </Fragment>
     </StyledDiv>
   );

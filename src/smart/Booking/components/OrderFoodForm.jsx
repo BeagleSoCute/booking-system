@@ -1,30 +1,31 @@
 import React from "react";
-import styled from "styled-components";
 import { Button, Form, Input, Select, InputNumber } from "antd";
 
-const OrderForm = () => {
+const OrderFoodForm = ({onAdd}) => {
   const [form] = Form.useForm();
+  const handleAdd = (value) => {
+    onAdd(value);
+  }
   return (
     <Form
       form={form}
       className="border border-gray-300 p-5"
       name="basic"
       labelCol={{ span: 24 }}
-      //  initialValues={{ remember: true }}
-      // onFinish={onFinish}
+      onFinish={handleAdd}
       autoComplete="off"
     >
       <div className="flex justify-center items-center space-x-4">
         <Form.Item
           label="Food"
-          name="dish"
+          name="food"
+          style={{ width: "150px" }}
           rules={[{ required: true, message: "" }]}
         >
           <Select
-            style={{
-              width: 120,
-            }}
-            //   onChange={handleChange}
+            className="w-full"
+            style={{ width: "100%" }}
+            // onChange={handleChange}
             options={[
               {
                 value: "Pad Thai",
@@ -48,12 +49,11 @@ const OrderForm = () => {
         <Form.Item
           label="Choice of Meat"
           name="choiceOfMeat"
+          style={{ width: "150px" }}
           rules={[{ required: true, message: "" }]}
         >
           <Select
-            style={{
-              width: 120,
-            }}
+            className="w-full"
             //onChange={handleChange}
             options={[
               {
@@ -75,11 +75,14 @@ const OrderForm = () => {
             ]}
           />
         </Form.Item>
+        <Form.Item label="Amount" name="amount">
+          <InputNumber className="w-full" />
+        </Form.Item>
         <Form.Item label="Specification" name="specification">
           <Input.TextArea className="w-full" />
         </Form.Item>
       </div>
-      <Form.Item colon={false} className="flex justify-center ">
+      <Form.Item colon={false} className="flex justify-center">
         <Button className="w-64" htmlType="submit">
           Add
         </Button>
@@ -88,4 +91,4 @@ const OrderForm = () => {
   );
 };
 
-export default OrderForm;
+export default OrderFoodForm;
