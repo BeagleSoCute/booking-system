@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Button, Form, Input, DatePicker, InputNumber } from "antd";
 import dayjs from "dayjs";
 
-const Booking = ({ onFinish }) => {
+const Booking = ({ isConfirm, onFinish }) => {
   const [form] = Form.useForm();
   const handleDisabledStartDate = (current) => {
     const finishDate = form.getFieldValue("finishDateTime");
@@ -69,7 +69,7 @@ const Booking = ({ onFinish }) => {
         </div>
         <Form.Item colon={false} className="flex justify-center ">
           <Button className="w-64" htmlType="submit">
-            Confirm
+            {isConfirm ? "Order here" : "Confirm"}
           </Button>
         </Form.Item>
       </Form>

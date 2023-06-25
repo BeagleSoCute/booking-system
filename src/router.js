@@ -12,6 +12,7 @@ import { checkIsAuth } from "helpers/auth.helper";
 import { notification } from "helpers/notification.helper";
 import BookingPage from "smart/Booking/smart/BookingPage"
 import PrivateRoute from "smart/PrivateRoute";
+import Order from "smart/Order/smart/Order"
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ export const router = createBrowserRouter([
     //   errorElement: <ErrorPage />,
     children: [
       {path: "/", element: <BookingPage/>},
+      {path: "/order", element: <Order/>},
       { path: "/logout", element: <Logout /> },
       {
         path: "/dashboard",

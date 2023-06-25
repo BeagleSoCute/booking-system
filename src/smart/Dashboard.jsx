@@ -29,7 +29,7 @@ const Dashboard = () => {
 
   const allUserColums = [
     {
-      title: "ID",
+      title: "Order id",
       dataIndex: "id",
       key: "id",
     },
@@ -37,6 +37,11 @@ const Dashboard = () => {
       title: "Name",
       dataIndex: "name",
       key: "name",
+    },
+    {
+      title: "Phone number",
+      dataIndex: "phone",
+      key: "email",
     },
     {
       title: "Email",
@@ -65,14 +70,13 @@ const Dashboard = () => {
       dataIndex: "delete",
       key: "delete",
       width: "5%",
-
       render: (item, record) => <Button>Delete</Button>,
     },
   ];
   return (
     <StyledDiv className="dashboard">
       <h1>Dashboard</h1>
-      {checkIsAuth() ? (
+      {/* {checkIsAuth() ? ( */}
         <div>
           <Row className="myInfo">
             <Col span={6}>Name: {user.name} </Col>
@@ -80,9 +84,9 @@ const Dashboard = () => {
           </Row>
           <TableData columns={allUserColums} data={users} />
         </div>
-      ) : (
-        <h2>Please Login into the system</h2>
-      )}
+      {/* ) : ( */}
+        {/* <h2>Please Login into the system</h2> */}
+      {/* )} */}
     </StyledDiv>
   );
 };
