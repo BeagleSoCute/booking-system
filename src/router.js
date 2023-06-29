@@ -13,6 +13,7 @@ import { notification } from "helpers/notification.helper";
 import BookingPage from "smart/Booking/smart/BookingPage"
 import PrivateRoute from "smart/PrivateRoute";
 import Order from "smart/Order/smart/Order"
+import BookingDetails from "smart/Booking/smart/BookingDetails"
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
       {path: "/", element: <BookingPage/>},
       {path: "/order", element: <Order/>},
       { path: "/logout", element: <Logout /> },
+      {path: "/bookingDetails/:orderId", element: <BookingDetails />},
       {
         path: "/dashboard",
         element: <Dashboard />,

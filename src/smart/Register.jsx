@@ -10,8 +10,8 @@ const Register = () => {
   const { setLoading } = useContext(AppContext);
   const handleOnFinish = async (values) => {
     setLoading(true);
-    const { email, name, password } = values;
-    const isSuccess = await register({ email, name, password });
+    const { email, name, password, phoneNumber } = values;
+    const isSuccess = await register({ email, name, password, phoneNumber, role:"customer" });
     setLoading(false);
     if (isSuccess) {
       navigate("/login");

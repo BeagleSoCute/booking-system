@@ -41,7 +41,7 @@ export const AppProvider = ({ children }) => {
         dispatch({ type: TYPES.SET_USER, payload: data });
       },
     };
-  }, [loading, isAuth, user, dispatch]);
+  }, [ isAuth, user, dispatch]);
   return (
     <AppContext.Provider value={appContextValue}>
       {children}

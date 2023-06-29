@@ -8,11 +8,14 @@ import { notification } from "helpers/notification.helper";
 const Logout = () => {
   const navigate = useNavigate();
   const resCheckAuth = checkIsAuth();
-
   const { setLoading } =
     useContext(AppContext);
   useEffect(() => {
-    const init = async () => {
+    console.log('logout--useEffect----')
+
+    const init = async () => {     
+       setLoading(true);
+
       if (!resCheckAuth) {
         notification({
           type: "warning",
@@ -23,12 +26,13 @@ const Logout = () => {
         navigate("/login");
         return;
       }
-      setLoading(true);
       const success = await logout();
       if (success) {
         navigate("/login");
       }
+      console.log('logout--end----')
       setLoading(false);
+      return;
     };
     init();
   }, []);

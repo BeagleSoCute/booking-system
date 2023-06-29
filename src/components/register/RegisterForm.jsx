@@ -44,6 +44,14 @@ const RegisterForm = ({ onFinish }) => {
         >
           <Input />
         </Form.Item>
+        
+        <Form.Item
+          label="Phone Number"
+          name="phoneNumber"
+          rules={[{ required: true, message: "Please input your phone number!" }]}
+        >
+          <Input />
+        </Form.Item>
 
         <Form.Item
           label="Password"

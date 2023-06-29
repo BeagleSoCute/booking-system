@@ -6,8 +6,8 @@ import AlertMessage from "components/common/AlertMessage";
 
 const BookingSection = ({ isConfirm, onFinish }) => {
   const [form] = Form.useForm();
-  const handleSubmit = () => {
-    onFinish();
+  const handleSubmit = (value) => {
+    onFinish(value);
   };
 
   return (

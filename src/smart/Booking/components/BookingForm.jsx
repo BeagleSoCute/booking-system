@@ -37,21 +37,21 @@ const Booking = ({ isConfirm, onFinish }) => {
         <div className="flex justify-center items-center space-x-4">
           <Form.Item
             label="People"
-            name="clientNumber"
+            name="adultAmount"
             rules={[{ required: true, message: "" }]}
           >
             <InputNumber className="w-full" />
           </Form.Item>
           <Form.Item
             label="Baby aged below 4"
-            name="babyNumber"
+            name="babyAmount"
             rules={[{ required: true, message: "" }]}
           >
             <InputNumber className="w-full" />
           </Form.Item>
           <Form.Item
             label="Date & Time"
-            name="bookingDate"
+            name="dateTime"
             rules={[{ required: true, message: "" }]}
           >
             <DatePicker

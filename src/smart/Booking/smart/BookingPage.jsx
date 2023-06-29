@@ -5,21 +5,32 @@ import BookingForm from "smart/Booking/components/BookingForm";
 import BookingSection from "smart/Booking/components/BookingSection";
 import { Button, Checkbox, Form, Input } from "antd";
 import { notification } from "helpers/notification.helper";
+import { addBooking } from "services/booking.service";
 
 const Booking = () => {
   const [isConfirm, setIsConfirm] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmitBooking = () => {
+  const handleSubmitBooking = async(value) => {
     if (isConfirm) {
       navigate("/order");
       return;
     }
-    setIsConfirm(true);
-    notification({
-      type: "success",
-      message: "Your booking is success",
-    });
+    console.log('value',value)
+    const success = await addBooking(value);
+    if(success){
+      setIsConfirm(true);
+      notification({
+        type: "success",
+        message: "Your booking is success",
+      });
+    }else{
+      setIsConfirm(false);
+      notification({
+        type: "error",
+        message: "Fail to arrange your booking, please contact us via phone number!",
+      });
+    }
   };
   return (
     <StyledDiv className="booking">
