@@ -12,13 +12,14 @@ const authenMenu = [
   { key: 1, label: "Booking", path: "/" },
   { key: 2, label: "Dashboard", path: "/dashboard" },
   { key: 3, label: "Profile", path: "/profile" },
-  { key: 4, label: "Logout", path: "/logout" },
+  { key: 4, label: "Product", path: "/product" },
+  { key: 5, label: "Logout", path: "/logout" },
 ];
 const notAuthenMenu = [
-  { key: 5, label: "Booking", path: "/" },
-  { key: 6, label: "Dashboard", path: "/dashboard" },
-  { key: 7, label: "Login", path: "/login" },
-  { key: 8, label: "Register", path: "/register" },
+  { key: 6, label: "Booking", path: "/" },
+  { key: 7, label: "Dashboard", path: "/dashboard" },
+  { key: 8, label: "Login", path: "/login" },
+  { key: 9, label: "Register", path: "/register" },
 ];
 
 const AppLayout = () => {

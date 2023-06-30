@@ -14,6 +14,7 @@ import BookingPage from "smart/Booking/smart/BookingPage"
 import PrivateRoute from "smart/PrivateRoute";
 import Order from "smart/Order/smart/Order"
 import BookingDetails from "smart/Booking/smart/BookingDetails"
+import ProductPage from "smart/Product/smart/ProductPage"
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "/product",
+        element: <ProductPage />,
       },
       {
         path: "/user/:userId",

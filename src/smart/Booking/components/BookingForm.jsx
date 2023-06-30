@@ -1,9 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import { Button, Form, Input, DatePicker, InputNumber } from "antd";
 import dayjs from "dayjs";
 
-const Booking = ({ isConfirm, onFinish }) => {
+const Booking = ({ bookingDetails, isConfirm, onFinish, isEdit=true }) => {
+  useEffect(() => {
+    form.setFieldsValue(bookingDetails);
+  }, [bookingDetails]);
   const [form] = Form.useForm();
   const handleDisabledStartDate = (current) => {
     const finishDate = form.getFieldValue("finishDateTime");
@@ -21,7 +24,6 @@ const Booking = ({ isConfirm, onFinish }) => {
       //   );
     }
   };
-
   return (
     <StyledDiv className="booking-form">
       <Form
@@ -30,7 +32,6 @@ const Booking = ({ isConfirm, onFinish }) => {
         name="basic"
         label="test"
         labelCol={{ span: 24 }}
-        initialValues={{ remember: true }}
         onFinish={onFinish}
         autoComplete="off"
       >
@@ -67,11 +68,13 @@ const Booking = ({ isConfirm, onFinish }) => {
             <Input.TextArea className="w-full" />
           </Form.Item>
         </div>
+        { isEdit &&
         <Form.Item colon={false} className="flex justify-center ">
           <Button className="w-64" htmlType="submit">
             {isConfirm ? "Order here" : "Confirm"}
           </Button>
         </Form.Item>
+}
       </Form>
     </StyledDiv>
   );

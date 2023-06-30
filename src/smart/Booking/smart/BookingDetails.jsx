@@ -1,16 +1,30 @@
-import react, { useEffect, useState } from "react";
+import react, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "contexts/app.context";
 import TableData from "components/common/TableData";
 import {columnsFood, columnsDrink} from "./tableData"
 import BookingForm from "smart/Booking/components/BookingForm";
+import {getMyBooking} from "services/booking.service"
+import dayjs from "dayjs"
 
 const BookingDetails = () => {
+  const { user,setLoading } = useContext(AppContext);
   const { orderId } = useParams();
-  const [order, setOrder] = useState({});
+  const [booking, setBooking] = useState();
   useEffect(() => {
-console.log('useEffect in BookingDetails')
+    setLoading(true)
+    const init = async() => {
+    const {success, payload} =  await getMyBooking(orderId);
+    console.log('payload is', payload)
+    if(success){
+      setBooking(payload);
+    }
+    setLoading(false)
+    }
+    init();
+    console.log('ssuserr',user)
+
   },[])
   // useEffect(() => {
   //   const init = async () => {
@@ -25,10 +39,20 @@ console.log('useEffect in BookingDetails')
   //   init();
   //   // eslint-disable-next-line
   // }, []);
+  const bookingFormProps = {
+    bookingDetails: {
+      adultAmount: booking?.adultAmount ,
+      babyAmount: booking?.babyAmount,
+      dateTime: dayjs(booking?.dateTime),
+      specification: booking?.specification
+    },
+    isConfirm: false ,
+    isEdit: booking && user?.role === 'admin'? true : false
+  }
 
   return (
     <StyledDiv className="booking-details">
-    <BookingForm  isConfirm={true}  />
+    <BookingForm  {...bookingFormProps}  />
       <div className="order-details">
         <h1 className="text-2xl mt-5">Food</h1>
         <TableData

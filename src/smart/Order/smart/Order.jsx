@@ -12,8 +12,6 @@ const Order = () => {
     const [orderDrinkDetails, setOrderDrinkDetails] = useState([]);
     const [orderFoodDetails, setOrderFoodDetails] = useState([]);
     const handleAddOrderDrink = (data) => {
-        console.log('data on handleAddOrder',data);
-        console.log('orderDetails',orderDrinkDetails);
         const transformData = {
           ...data,
           id:uuidv4()
@@ -42,6 +40,11 @@ const Order = () => {
        setOrderDrinkDetails(result);
         }
       
+    const handleSubmit = async() => {
+      console.log('orderFoodDetails',orderFoodDetails)
+      console.log('orderDrinkDetails',orderDrinkDetails)
+
+    }
     
 
     return <StyledDiv className="order">
@@ -76,7 +79,7 @@ const Order = () => {
         <TableData data={orderFoodDetails} columns={columnsFood(handleDeleteFood)} />
         <h1 className="text-2xl mt-5">Order your drink</h1>
         <TableData data={orderDrinkDetails} columns={columnsDrink(handleDeleteDrink)} />
-        <Button className="flex justify-center">Confirm Order</Button>
+        <Button onClick={handleSubmit} className="flex justify-center">Confirm Order</Button>
     </StyledDiv>
 }
 
