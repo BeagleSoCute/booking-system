@@ -27,15 +27,15 @@ export const router = createBrowserRouter([
     //   errorElement: <ErrorPage />,
     children: [
       {path: "/", element: <BookingPage/>},
-      {path: "/order", element: <Order/>},
+      {path: "/order/:bookingId", element: <Order/>},
       { path: "/logout", element: <Logout /> },
-      {path: "/bookingDetails/:orderId", element: <BookingDetails />},
+      {path: "/bookingDetails/:bookingId", element: <BookingDetails />},
       {
         path: "/dashboard",
         element: <Dashboard />,
       },
       {
-        path: "/product",
+        path: "/product/",
         element: <ProductPage />,
       },
       {

@@ -1,11 +1,16 @@
-import { addBookingAPI, getBookingAPI, getBookingByIdAPI, getAllBookingAPI } from "../apis/booking.api";
-import dayjs from "dayjs"
+import {
+  addBookingAPI,
+  getBookingAPI,
+  getBookingByIdAPI,
+  updateOrderBookingAPI,
+} from "../apis/booking.api";
+import dayjs from "dayjs";
 
 export const addBooking = async (data) => {
-    const transformData = {
-        ...data,
-        dateTime: dayjs(data.dateTime).format("DD-MM-YYYY HH:mm")
-    }
+  const transformData = {
+    ...data,
+    dateTime: dayjs(data.dateTime).format("DD-MM-YYYY HH:mm"),
+  };
   const res = await addBookingAPI(transformData);
   if (res.success) {
     return true;
@@ -15,16 +20,21 @@ export const addBooking = async (data) => {
 };
 
 export const getBooking = async () => {
-  const { success, payload } = await  getBookingAPI();
-  console.log('payload from getbooking is ', payload)
-    return { success, payload };
- 
+  const { success, payload } = await getBookingAPI();
+  console.log("payload from getbooking is ", payload);
+  return { success, payload };
 };
 
 export const getMyBooking = async (orderId) => {
-  console.log('orderId',orderId)
   const { success, payload } = await getBookingByIdAPI(orderId);
-  console.log('success',payload)
-    return { success, payload };
+  return { success, payload };
+};
 
-}
+export const updateOrderBooking = async (bookingId, data) => {
+  const thisData = {
+    ...data,
+    bookingId,
+  };
+  const { success } = await updateOrderBookingAPI(thisData);
+   return { success };
+};

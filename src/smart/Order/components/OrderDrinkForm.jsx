@@ -1,12 +1,12 @@
 import React from "react";
 import { Button, Form, Input, Select, InputNumber } from "antd";
 
-const OrderDrinkForm = ({options, onAdd}) => {
+const OrderDrinkForm = ({ options, onAdd }) => {
   const [form] = Form.useForm();
   const handleAdd = (value) => {
     form.resetFields();
-    onAdd(value)
-  }
+    onAdd(value);
+  };
   return (
     <Form
       form={form}
@@ -19,17 +19,17 @@ const OrderDrinkForm = ({options, onAdd}) => {
       <div className="flex justify-center items-center space-x-4">
         <Form.Item
           label="Drink"
-          name="drink"
+          name="name"
           style={{ width: "150px" }}
           rules={[{ required: true, message: "" }]}
         >
-          <Select
-            className="w-full"
-            options={options}
-          />
+          <Select className="w-full" options={options} />
         </Form.Item>
-        <Form.Item label="Amount" name="amount"           rules={[{ required: true, message: "" }]}
->
+        <Form.Item
+          label="Amount"
+          name="amount"
+          rules={[{ required: true, message: "" }]}
+        >
           <InputNumber className="w-full" />
         </Form.Item>
         <Form.Item label="Specification" name="specification">

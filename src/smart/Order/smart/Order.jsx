@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "antd";
 import OrderFoodForm from "../components/OrderFoodForm";
@@ -9,27 +10,34 @@ import { columnsFood, columnsDrink } from "../tableContent";
 import { getProduct } from "services/product.service";
 import { notification } from "helpers/notification.helper";
 import { AppContext } from "contexts/app.context";
+import {updateOrderBooking} from "services/booking.service"
 
 const Order = () => {
+  const navigate = useNavigate();
+  const { bookingId } = useParams();
   const { setLoading } = useContext(AppContext);
   const [selectOrder, setSelectOrder] = useState("");
   const [orderDrinkDetails, setOrderDrinkDetails] = useState([]);
   const [orderFoodDetails, setOrderFoodDetails] = useState([]);
-  const [foodOptions, setFoodOptions] = useState(); 
-  const [meatOptions, setMeatOptions] = useState(); 
-  const [drinkOptions, setDrinkOptions] = useState(); 
+  const [foodOptions, setFoodOptions] = useState();
+  const [meatOptions, setMeatOptions] = useState();
+  const [drinkOptions, setDrinkOptions] = useState();
   useEffect(() => {
     const init = async () => {
-      console.log('+++init+++')
       setLoading(true);
       const { success, payload } = await getProduct();
-      console.log('payload---- is ', payload)
       if (success) {
         const transformOptions = {
-          food: payload.food.map(item => {return{value:item.name, label:item.name}}),
-          drink: payload.drink.map(item => {return{value:item.name, label:item.name}}),
-          meat: payload.meat.map(item => {return{value:item.name, label:item.name}})
-        }
+          food: payload.food.map((item) => {
+            return { value: item.name, label: item.name };
+          }),
+          drink: payload.drink.map((item) => {
+            return { value: item.name, label: item.name };
+          }),
+          meat: payload.meat.map((item) => {
+            return { value: item.name, label: item.name };
+          }),
+        };
         setFoodOptions(transformOptions.food);
         setMeatOptions(transformOptions.meat);
         setDrinkOptions(transformOptions.drink);
@@ -70,8 +78,34 @@ const Order = () => {
     setOrderDrinkDetails(result);
   };
   const handleSubmit = async () => {
-    console.log("orderFoodDetails", orderFoodDetails);
-    console.log("orderDrinkDetails", orderDrinkDetails);
+    const transformFoodData = orderFoodDetails.map((item) => {
+      return {
+        amount: item.amount,
+        meat: item.meat,
+        name: item.name,
+        specification: item.specification,
+      };
+    });
+    const transformDrinkData = orderDrinkDetails.map((item) => {
+      return {
+        name: item.name,
+        amount: item.amount,
+        specification: item.specification,
+      };
+    });
+    const { success } = await updateOrderBooking(bookingId, {food:transformFoodData, drink:transformDrinkData});
+    if (success) {
+      notification({
+        type: "success",
+        message: "Update order successfully",
+      });
+      navigate(`/order/${bookingId}`);
+    } else {
+      notification({
+        type: "error",
+        message: "Can not update the order, Please contact admin!",
+      });
+    }
   };
   return (
     <StyledDiv className="order">
@@ -102,7 +136,11 @@ const Order = () => {
         </div>
       </div>
       {selectOrder === "food" ? (
-        <OrderFoodForm foodOptions={foodOptions} meatOptions={meatOptions} onAdd={handleAddOrderFood} />
+        <OrderFoodForm
+          foodOptions={foodOptions}
+          meatOptions={meatOptions}
+          onAdd={handleAddOrderFood}
+        />
       ) : selectOrder === "drink" ? (
         <OrderDrinkForm options={drinkOptions} onAdd={handleAddOrderDrink} />
       ) : null}

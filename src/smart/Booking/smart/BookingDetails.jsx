@@ -12,12 +12,12 @@ import {Button} from "antd"
 const BookingDetails = () => {
   const { user, setLoading } = useContext(AppContext);
   const navigate = useNavigate();
-  const { orderId } = useParams();
+  const { bookingId } = useParams();
   const [booking, setBooking] = useState();
   useEffect(() => {
     setLoading(true);
     const init = async () => {
-      const { success, payload } = await getMyBooking(orderId);
+      const { success, payload } = await getMyBooking(bookingId);
       if (success) {
         setBooking(payload);
       }
@@ -52,17 +52,15 @@ const BookingDetails = () => {
       </div>
       <BookingForm {...bookingFormProps} />
       <div className="flex justify-center mt-10 ">
-      <Button onClick={() => navigate('/order')} className="w-64">Manage order</Button>
+      <Button onClick={() => navigate(`/order/${bookingId}`)} className="w-64">Manage order</Button>
         </div>
       <div className="order-details">
         <h1 className="text-2xl mt-5">Food</h1>
         <TableData
-          // data={orderFoodDetails}
           columns={columnsFood()}
         />
         <h1 className="text-2xl mt-5">Drink</h1>
         <TableData
-          // data={orderDrinkDetails}
           columns={columnsDrink()}
         />
       </div>

@@ -3,14 +3,14 @@ import { DeleteOutlined } from '@ant-design/icons';
 
 export const columnsFood = (handleDeleteFood) => [
     {
-      title: 'Food',
-      dataIndex: 'food',
-      key: 'food',
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
       title: 'Choice of meat',
-      dataIndex: 'choiceOfMeat',
-      key: 'choiceOfMeat',
+      dataIndex: 'meat',
+      key: 'meat',
     },
     {
       title: 'Amount',
@@ -40,9 +40,9 @@ export const columnsFood = (handleDeleteFood) => [
   
   export const columnsDrink = (handleDeleteDrink) => [
     {
-      title: 'Drink',
-      dataIndex: 'drink',
-      key: 'food',
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
       title: 'Amount',

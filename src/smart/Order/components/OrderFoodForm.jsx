@@ -18,7 +18,7 @@ const OrderFoodForm = ({foodOptions, meatOptions, onAdd }) => {
       <div className="flex justify-center items-center space-x-4">
         <Form.Item
           label="Food"
-          name="food"
+          name="name"
           style={{ width: "150px" }}
           rules={[{ required: true, message: "" }]}
         >
@@ -31,7 +31,7 @@ const OrderFoodForm = ({foodOptions, meatOptions, onAdd }) => {
         </Form.Item>
         <Form.Item
           label="Choice of Meat"
-          name="choiceOfMeat"
+          name="meat"
           style={{ width: "150px" }}
           rules={[{ required: true, message: "" }]}
         >
