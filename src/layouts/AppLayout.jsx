@@ -5,29 +5,30 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "contexts/app.context";
 import { checkIsAuth } from "helpers/auth.helper";
 import { Outlet } from "react-router-dom";
-
 const { Header } = Layout;
-
 const authenMenu = [
   { key: 1, label: "Booking", path: "/" },
   { key: 2, label: "Dashboard", path: "/dashboard" },
-  { key: 3, label: "Profile", path: "/profile" },
-  { key: 4, label: "Product", path: "/product" },
-  { key: 5, label: "Logout", path: "/logout" },
+  { key: 3, label: "Logout", path: "/logout" },
+];
+const adminMenu = [
+  { key: 4, label: "Dashboard", path: "/dashboard" },
+  { key: 5, label: "Product", path: "/product" },
+  { key: 6, label: "Logout", path: "/logout" },
 ];
 const notAuthenMenu = [
-  { key: 6, label: "Booking", path: "/" },
-  { key: 7, label: "Dashboard", path: "/dashboard" },
+  // { key: 6, label: "Booking", path: "/" },
+  // { key: 7, label: "Dashboard", path: "/dashboard" },
   { key: 8, label: "Login", path: "/login" },
   { key: 9, label: "Register", path: "/register" },
 ];
 
 const AppLayout = () => {
-  const { loading } = useContext(AppContext);
+  const { loading, user } = useContext(AppContext);
   const isAuth = checkIsAuth();
   const navigate = useNavigate();
   const handleOnClick = (selected) => {
-    const menus = isAuth ? authenMenu : notAuthenMenu;
+    const menus = isAuth && user.role==="admin" ? adminMenu : isAuth ? authenMenu  : notAuthenMenu;
     const result = menus.find((menu) => menu.key === parseInt(selected.key));
     navigate(result.path);
   };
@@ -41,7 +42,7 @@ const AppLayout = () => {
           mode="horizontal"
           defaultSelectedKeys={["0"]}
           onClick={handleOnClick}
-          items={isAuth ? authenMenu : notAuthenMenu}
+          items={isAuth && user.role==="admin" ? adminMenu : isAuth ? authenMenu  : notAuthenMenu}
         />
       </Header>
       <div className="content">

@@ -1,29 +1,21 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Button, Form, Input, DatePicker, InputNumber } from "antd";
-import dayjs from "dayjs";
 
-const Booking = ({ bookingDetails, isConfirm, onFinish, isEdit = true , isAdmin=false}) => {
+const Booking = ({
+  bookingDetails,
+  isConfirm,
+  onFinish,
+  isEdit = true,
+  isAdmin = false,
+  isSeeDetail = false,
+}) => {
   useEffect(() => {
     form.setFieldsValue(bookingDetails);
   }, [bookingDetails]);
   const [form] = Form.useForm();
-  const handleDisabledStartDate = (current) => {
-    const finishDate = form.getFieldValue("finishDateTime");
-    if (finishDate) {
-      return current && current.isAfter(dayjs(finishDate).endOf("day"), "day");
-    }
-  };
-  const handleDisableStartTime = () => {
-    const finishDate = form.getFieldValue("finishDateTime");
-    if (finishDate) {
-      //   return preventSelectExcessTime(
-      //     form.getFieldValue("startDateTime"),
-      //     form.getFieldValue("finishDateTime"),
-      //     form.getFieldValue("finishDateTime")
-      //   );
-    }
-  };
+  const isDisableFiled = isSeeDetail && !isAdmin;
+
   return (
     <StyledDiv className="booking-form">
       <Form
@@ -41,14 +33,14 @@ const Booking = ({ bookingDetails, isConfirm, onFinish, isEdit = true , isAdmin=
             name="adultAmount"
             rules={[{ required: true, message: "" }]}
           >
-            <InputNumber className="w-full" />
+            <InputNumber  disabled={isDisableFiled} className="w-full" />
           </Form.Item>
           <Form.Item
             label="Baby aged below 4"
             name="babyAmount"
             rules={[{ required: true, message: "" }]}
           >
-            <InputNumber className="w-full" />
+            <InputNumber disabled={isDisableFiled} className="w-full" />
           </Form.Item>
           <Form.Item
             label="Date & Time"
@@ -56,16 +48,15 @@ const Booking = ({ bookingDetails, isConfirm, onFinish, isEdit = true , isAdmin=
             rules={[{ required: true, message: "" }]}
           >
             <DatePicker
+              disabled={isDisableFiled}
               showTime
               className="w-full"
-              disabledDate={handleDisabledStartDate}
               allowClear={false}
               format="DD/MM/YYYY HH:mm"
-              disabledTime={() => handleDisableStartTime()}
             />
           </Form.Item>
           <Form.Item label="Specification" name="specification">
-            <Input.TextArea className="w-full" />
+            <Input.TextArea disabled={isDisableFiled} className="w-full" />
           </Form.Item>
         </div>
         {isEdit && (

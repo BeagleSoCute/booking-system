@@ -26,19 +26,6 @@ const BookingDetails = () => {
     init();
     console.log("ssuserr", user);
   }, []);
-  // useEffect(() => {
-  //   const init = async () => {
-  //     setLoading(true);
-  //     //   const { success, details } = await getOrderDetails(userId);
-  //   //   if (success) {
-  //   //     setOrder(details);
-  //   //   }
-  //   //   setLoading(false);
-  //   //   return;
-  //   // };
-  //   init();
-  //   // eslint-disable-next-line
-  // }, []);
   const bookingFormProps = {
     bookingDetails: {
       adultAmount: booking?.adultAmount,
@@ -48,9 +35,9 @@ const BookingDetails = () => {
     },
     isConfirm: false,
     isAdmin: user.role === "admin",
+    isSeeDetail: true,
     isEdit: booking && user?.role === "admin" ? true : false,
   };
-
   return (
     <StyledDiv className="booking-details">
       <div className="flex justify-center items-center space-x-4 mb-5 ">
@@ -76,17 +63,7 @@ const BookingDetails = () => {
           // data={orderDrinkDetails}
           columns={columnsDrink()}
         />
-        {/* <Button className="flex justify-center">Confirm Order</Button> */}
       </div>
-
-      <div className="flex justify-center pb-20 ">
-        <div>
-        < Button className="flex justify-center">Update</Button>
-        </div>
-        <div>
-        < Button className="flex justify-center">Delete</Button>
-        </div>
-        </div>
     </StyledDiv>
   );
 };
