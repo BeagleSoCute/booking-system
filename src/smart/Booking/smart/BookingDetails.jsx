@@ -1,5 +1,5 @@
 import react, { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "contexts/app.context";
 import TableData from "components/common/TableData";
@@ -11,20 +11,19 @@ import {Button} from "antd"
 
 const BookingDetails = () => {
   const { user, setLoading } = useContext(AppContext);
+  const navigate = useNavigate();
   const { orderId } = useParams();
   const [booking, setBooking] = useState();
   useEffect(() => {
     setLoading(true);
     const init = async () => {
       const { success, payload } = await getMyBooking(orderId);
-      console.log("payload is", payload);
       if (success) {
         setBooking(payload);
       }
       setLoading(false);
     };
     init();
-    console.log("ssuserr", user);
   }, []);
   const bookingFormProps = {
     bookingDetails: {
@@ -52,6 +51,9 @@ const BookingDetails = () => {
         </div>
       </div>
       <BookingForm {...bookingFormProps} />
+      <div className="flex justify-center mt-10 ">
+      <Button onClick={() => navigate('/order')} className="w-64">Manage order</Button>
+        </div>
       <div className="order-details">
         <h1 className="text-2xl mt-5">Food</h1>
         <TableData

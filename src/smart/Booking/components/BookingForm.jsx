@@ -15,7 +15,6 @@ const Booking = ({
   }, [bookingDetails]);
   const [form] = Form.useForm();
   const isDisableFiled = isSeeDetail && !isAdmin;
-
   return (
     <StyledDiv className="booking-form">
       <Form

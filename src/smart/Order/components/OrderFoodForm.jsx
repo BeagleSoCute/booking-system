@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Form, Input, Select, InputNumber } from "antd";
-
-const OrderFoodForm = ({ onAdd }) => {
+const OrderFoodForm = ({foodOptions, meatOptions, onAdd }) => {
   const [form] = Form.useForm();
   const handleAdd = (value) => {
     form.resetFields();
@@ -27,24 +26,7 @@ const OrderFoodForm = ({ onAdd }) => {
             className="w-full"
             style={{ width: "100%" }}
             // onChange={handleChange}
-            options={[
-              {
-                value: "Pad Thai",
-                label: "Pad Thai",
-              },
-              {
-                value: "Fried Rice",
-                label: "Fried Rice",
-              },
-              {
-                value: "Tomyum",
-                label: "Tomyum",
-              },
-              {
-                value: "Green Curry",
-                label: "Green Curry",
-              },
-            ]}
+            options={foodOptions}
           />
         </Form.Item>
         <Form.Item
@@ -56,24 +38,7 @@ const OrderFoodForm = ({ onAdd }) => {
           <Select
             className="w-full"
             //onChange={handleChange}
-            options={[
-              {
-                value: "Chicken",
-                label: "Chicken",
-              },
-              {
-                value: "Pork",
-                label: "Pork",
-              },
-              {
-                value: "Beef",
-                label: "Beef",
-              },
-              {
-                value: "Tofu",
-                label: "Tofu",
-              },
-            ]}
+            options={meatOptions}
           />
         </Form.Item>
         <Form.Item

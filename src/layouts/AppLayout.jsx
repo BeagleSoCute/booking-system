@@ -17,8 +17,6 @@ const adminMenu = [
   { key: 6, label: "Logout", path: "/logout" },
 ];
 const notAuthenMenu = [
-  // { key: 6, label: "Booking", path: "/" },
-  // { key: 7, label: "Dashboard", path: "/dashboard" },
   { key: 8, label: "Login", path: "/login" },
   { key: 9, label: "Register", path: "/register" },
 ];
@@ -32,7 +30,6 @@ const AppLayout = () => {
     const result = menus.find((menu) => menu.key === parseInt(selected.key));
     navigate(result.path);
   };
-
   return (
     <StyledLayout className="app-layout">
       <Header>

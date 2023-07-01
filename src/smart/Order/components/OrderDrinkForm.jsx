@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Form, Input, Select, InputNumber } from "antd";
 
-const OrderDrinkForm = ({onAdd}) => {
+const OrderDrinkForm = ({options, onAdd}) => {
   const [form] = Form.useForm();
   const handleAdd = (value) => {
     form.resetFields();
@@ -25,17 +25,7 @@ const OrderDrinkForm = ({onAdd}) => {
         >
           <Select
             className="w-full"
-            //   onChange={handleChange}
-            options={[
-              {
-                value: "Drink 1",
-                label: "Drink 1",
-              },
-              {
-                value: "Drink 2",
-                label: "Drink 2",
-              },
-            ]}
+            options={options}
           />
         </Form.Item>
         <Form.Item label="Amount" name="amount"           rules={[{ required: true, message: "" }]}

@@ -16,7 +16,6 @@ const Booking = () => {
       navigate("/order");
       return;
     }
-    console.log('value',value)
     const success = await addBooking(value);
     if(success){
       setIsConfirm(true);
