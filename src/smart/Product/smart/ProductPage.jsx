@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Form } from "antd";
-import AlertMessage from "components/common/AlertMessage";
+import { Button } from "antd";
 import TableData from "components/common/TableData";
 import ManageProductForm from "../components/ManageProductForm";
 //import { columnsFood, columnsDrink } from "../tableContent";
-import { columnsFood, columnsDrink, columnsMeat } from "../tableContent";
+import { columnsFood, columnsMeat } from "../tableContent";
+import { addProduct } from "services/product.service";
 import { v4 as uuidv4 } from "uuid";
+import { notification } from "helpers/notification.helper";
 
 const ProductPage = () => {
   const [selectOrder, setSelectOrder] = useState("");
@@ -46,6 +47,25 @@ const ProductPage = () => {
     } else {
       setDrinkLists([...drinkLists, transformData]);
     }
+  };
+
+  const handleAddProducts = async () => {
+    console.log('handleAddProducts')
+    const data = { food: foodLists, drink: drinkLists, meat: meatLists };
+    console.log('kuttt',data)
+    const {success} = await addProduct(data);
+    if(success){
+      notification({
+        type: "success",
+        message: "Update product success",
+      });
+    }else{
+      notification({
+        type: "Adding products fail",
+        message: "Please contact admin!",
+      });
+    }
+ 
   };
 
   return (
@@ -90,6 +110,9 @@ const ProductPage = () => {
       <TableData data={meatLists} columns={columnsMeat(handleDeleteMeat)} />
       <h1>Drink Lists </h1>
       <TableData data={drinkLists} columns={columnsFood(handleDeleteDrink)} />
+      <div className="flex justify-center pb-20 ">
+        <Button disabled={foodLists.length === 0 || drinkLists.length === 0 || meatLists.length === 0 ? true : false } onClick={() => handleAddProducts()}>Submit Add Product </Button>
+      </div>
     </StyledDiv>
   );
 };

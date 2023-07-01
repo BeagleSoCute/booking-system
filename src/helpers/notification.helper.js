@@ -4,6 +4,7 @@ import * as NotificationHelper from 'helpers/notification.helper';
 
 let notiList = [];
 export const notification = ({ type, message, description, options }) => {
+    console.log('noti')
     if (NotificationHelper.isDuplicate(notiList, { type, message, description, options })) {
         return;
     }

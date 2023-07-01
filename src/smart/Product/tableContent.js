@@ -58,8 +58,8 @@ export const columnsFood = (handleDeleteFood) => [
   export const columnsMeat = (handleDeleteMeat) => [
     {
       title: 'Meat',
-      dataIndex: 'choiceOfMeat',
-      key: 'choiceOfMeat',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
       title: 'Delete',

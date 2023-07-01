@@ -7,6 +7,7 @@ import AlertMessage from "components/common/AlertMessage";
 const BookingSection = ({ selectOrder, onFinish }) => {
   const [form] = Form.useForm();
   const handleSubmit = (value) => {
+    form.resetFields();
     onFinish(value);
   };
 
@@ -24,7 +25,7 @@ const BookingSection = ({ selectOrder, onFinish }) => {
           {selectOrder === "meat" ? (
             <Form.Item
               label="Meat"
-              name="choiceOfMeat"
+              name="name"
               rules={[{ required: true, message: "" }]}
             >
               <Input
@@ -57,7 +58,7 @@ const BookingSection = ({ selectOrder, onFinish }) => {
             </>
           )}
         </div>
-        <Form.Item colon={false} className="flex justify-center ">
+        <Form.Item colon={false} className="flex justify-center">
           <Button
             disabled={selectOrder === "" ? true : false}
             className="w-64"
