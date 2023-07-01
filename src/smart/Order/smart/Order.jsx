@@ -10,18 +10,27 @@ import { columnsFood, columnsDrink } from "../tableContent";
 import { getProduct } from "services/product.service";
 import { notification } from "helpers/notification.helper";
 import { AppContext } from "contexts/app.context";
-import {updateOrderBooking} from "services/booking.service"
+import { updateOrderBooking } from "services/booking.service";
 
 const Order = () => {
   const navigate = useNavigate();
   const { bookingId } = useParams();
-  const { setLoading } = useContext(AppContext);
+  const { order, setLoading } = useContext(AppContext);
   const [selectOrder, setSelectOrder] = useState("");
-  const [orderDrinkDetails, setOrderDrinkDetails] = useState([]);
-  const [orderFoodDetails, setOrderFoodDetails] = useState([]);
+  const [orderDrinkDetails, setOrderDrinkDetails] = useState();
+  const [orderFoodDetails, setOrderFoodDetails] = useState();
   const [foodOptions, setFoodOptions] = useState();
   const [meatOptions, setMeatOptions] = useState();
   const [drinkOptions, setDrinkOptions] = useState();
+
+  const transformData = (data) => {
+    return data.map((item) => {
+      return {
+        ...item,
+        id: item._id,
+      };
+    });
+  };
   useEffect(() => {
     const init = async () => {
       setLoading(true);
@@ -38,6 +47,9 @@ const Order = () => {
             return { value: item.name, label: item.name };
           }),
         };
+        console.log('transformData(order?.food)',transformData(order?.food))
+        setOrderFoodDetails(transformData(order?.food));
+        setOrderDrinkDetails(transformData(order?.drink));
         setFoodOptions(transformOptions.food);
         setMeatOptions(transformOptions.meat);
         setDrinkOptions(transformOptions.drink);
@@ -93,13 +105,16 @@ const Order = () => {
         specification: item.specification,
       };
     });
-    const { success } = await updateOrderBooking(bookingId, {food:transformFoodData, drink:transformDrinkData});
+    const { success } = await updateOrderBooking(bookingId, {
+      food: transformFoodData,
+      drink: transformDrinkData,
+    });
     if (success) {
       notification({
         type: "success",
         message: "Update order successfully",
       });
-      navigate(`/order/${bookingId}`);
+      navigate(`/bookingDetails/${bookingId}`);
     } else {
       notification({
         type: "error",

@@ -21,7 +21,6 @@ export const addBooking = async (data) => {
 
 export const getBooking = async () => {
   const { success, payload } = await getBookingAPI();
-  console.log("payload from getbooking is ", payload);
   return { success, payload };
 };
 

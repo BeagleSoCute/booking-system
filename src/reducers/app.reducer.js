@@ -4,11 +4,13 @@ const TYPES = {
   SET_USER: "SET_USER",
   SET_USER_LISTS: "SET_USER_LISTS",
   SET_NOTIFICATION: "SET_NOTIFICATION",
+  SET_ORDER: "SET_ORDER",
 };
 
 const defaultValue = {
   loading: false,
   isAuth: false,
+  order:{},
   user: {},
   users: [],
 };
@@ -26,6 +28,9 @@ const reducer = (state, action) => {
       return { ...state, users: payload };
     case TYPES.SET_NOTIFICATION:
       return { ...state, notificationData: payload };
+    case TYPES.SET_ORDER:
+      console.log('payload',payload)
+        return { ...state, order: payload };
     default:
       break;
   }

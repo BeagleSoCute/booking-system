@@ -1,8 +1,8 @@
 export const columnsFood = () => [
     {
-      title: 'Food',
-      dataIndex: 'food',
-      key: 'food',
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
       title: 'Choice of meat',
@@ -23,9 +23,9 @@ export const columnsFood = () => [
   
   export const columnsDrink = () => [
     {
-      title: 'Drink',
-      dataIndex: 'drink',
-      key: 'food',
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
       title: 'Amount',

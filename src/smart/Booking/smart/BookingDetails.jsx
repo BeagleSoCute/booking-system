@@ -7,10 +7,10 @@ import { columnsFood, columnsDrink } from "./tableData";
 import BookingForm from "smart/Booking/components/BookingForm";
 import { getMyBooking } from "services/booking.service";
 import dayjs from "dayjs";
-import {Button} from "antd"
+import { Button } from "antd";
 
 const BookingDetails = () => {
-  const { user, setLoading } = useContext(AppContext);
+  const { user, setLoading, setOrder } = useContext(AppContext);
   const navigate = useNavigate();
   const { bookingId } = useParams();
   const [booking, setBooking] = useState();
@@ -18,6 +18,7 @@ const BookingDetails = () => {
     setLoading(true);
     const init = async () => {
       const { success, payload } = await getMyBooking(bookingId);
+      console.log('payload', payload)
       if (success) {
         setBooking(payload);
       }
@@ -52,17 +53,21 @@ const BookingDetails = () => {
       </div>
       <BookingForm {...bookingFormProps} />
       <div className="flex justify-center mt-10 ">
-      <Button onClick={() => navigate(`/order/${bookingId}`)} className="w-64">Manage order</Button>
-        </div>
+        <Button
+          onClick={() => {
+            setOrder(booking?.order)
+            navigate(`/order/${bookingId}`)
+          } }
+          className="w-64"
+        >
+          Manage order
+        </Button>
+      </div>
       <div className="order-details">
         <h1 className="text-2xl mt-5">Food</h1>
-        <TableData
-          columns={columnsFood()}
-        />
+        <TableData columns={columnsFood()} data={booking?.order.food} />
         <h1 className="text-2xl mt-5">Drink</h1>
-        <TableData
-          columns={columnsDrink()}
-        />
+        <TableData columns={columnsDrink()} data={booking?.order.drink} />
       </div>
     </StyledDiv>
   );
