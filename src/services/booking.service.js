@@ -1,4 +1,4 @@
-import { addBookingAPI, getBookingAPI, getBookingByIdAPI } from "../apis/booking.api";
+import { addBookingAPI, getBookingAPI, getBookingByIdAPI, getAllBookingAPI } from "../apis/booking.api";
 import dayjs from "dayjs"
 
 export const addBooking = async (data) => {
@@ -15,7 +15,7 @@ export const addBooking = async (data) => {
 };
 
 export const getBooking = async () => {
-  const { success, payload } = await getBookingAPI();
+  const { success, payload } = await  getBookingAPI();
   console.log('payload from getbooking is ', payload)
     return { success, payload };
  

@@ -18,6 +18,7 @@ const Dashboard = () => {
   useEffect(() => {
     setLoading(true);
     const init = async () => {
+      // const isAdmin = user.role === "admin"
       const { success, payload } = await getBooking();
   //  const transformData = payload.map(item => {
   //   return {

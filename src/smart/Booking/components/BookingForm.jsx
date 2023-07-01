@@ -1,9 +1,9 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Button, Form, Input, DatePicker, InputNumber } from "antd";
 import dayjs from "dayjs";
 
-const Booking = ({ bookingDetails, isConfirm, onFinish, isEdit=true }) => {
+const Booking = ({ bookingDetails, isConfirm, onFinish, isEdit = true , isAdmin=false}) => {
   useEffect(() => {
     form.setFieldsValue(bookingDetails);
   }, [bookingDetails]);
@@ -68,13 +68,20 @@ const Booking = ({ bookingDetails, isConfirm, onFinish, isEdit=true }) => {
             <Input.TextArea className="w-full" />
           </Form.Item>
         </div>
-        { isEdit &&
-        <Form.Item colon={false} className="flex justify-center ">
-          <Button className="w-64" htmlType="submit">
-            {isConfirm ? "Order here" : "Confirm"}
-          </Button>
-        </Form.Item>
-}
+        {isEdit && (
+          <Form.Item colon={false} className="flex justify-center ">
+            {isAdmin ? (
+              <>
+                <Button className="w-64">Update</Button>
+                <Button className="w-64">Delete</Button>
+              </>
+            ) : (
+              <Button className="w-64" htmlType="submit">
+                {isConfirm ? "Order here" : "Confirm"}
+              </Button>
+            )}
+          </Form.Item>
+        )}
       </Form>
     </StyledDiv>
   );
