@@ -1,19 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { Button } from "antd";
 import TableData from "components/common/TableData";
 import ManageProductForm from "../components/ManageProductForm";
-//import { columnsFood, columnsDrink } from "../tableContent";
 import { columnsFood, columnsMeat } from "../tableContent";
-import { addProduct } from "services/product.service";
+import { addProduct, getProduct } from "services/product.service";
 import { v4 as uuidv4 } from "uuid";
 import { notification } from "helpers/notification.helper";
+import { AppContext } from "contexts/app.context";
 
 const ProductPage = () => {
+  const { setLoading } = useContext(AppContext);
   const [selectOrder, setSelectOrder] = useState("");
   const [foodLists, setFoodLists] = useState([]);
   const [meatLists, setMeatLists] = useState([]);
   const [drinkLists, setDrinkLists] = useState([]);
+  const [isFailFetchingProducts, setIsfail] = useState(false);
+
+  useEffect(() => {
+    const init = async () => {
+      setLoading(true);
+      const { success, payload } = await getProduct();
+      if (success) {
+        setFoodLists(payload.food);
+        setMeatLists(payload.meat);
+        setDrinkLists(payload.drink);
+      } else {
+        setIsfail(true);
+        notification({
+          type: "error",
+          message: "Can not get products, Please contact admin!",
+        });
+      }
+      setLoading(false);
+    };
+    init();
+  }, []);
 
   const handleDeleteFood = (data) => {
     const id = data.id;
@@ -50,22 +72,21 @@ const ProductPage = () => {
   };
 
   const handleAddProducts = async () => {
-    console.log('handleAddProducts')
+    console.log("handleAddProducts");
     const data = { food: foodLists, drink: drinkLists, meat: meatLists };
-    console.log('kuttt',data)
-    const {success} = await addProduct(data);
-    if(success){
+    console.log("kuttt", data);
+    const { success } = await addProduct(data);
+    if (success) {
       notification({
         type: "success",
         message: "Update product success",
       });
-    }else{
+    } else {
       notification({
-        type: "Adding products fail",
-        message: "Please contact admin!",
+        type: "error",
+        message: "Adding products fail, Please contact admin!",
       });
     }
- 
   };
 
   return (
@@ -111,7 +132,19 @@ const ProductPage = () => {
       <h1>Drink Lists </h1>
       <TableData data={drinkLists} columns={columnsFood(handleDeleteDrink)} />
       <div className="flex justify-center pb-20 ">
-        <Button disabled={foodLists.length === 0 || drinkLists.length === 0 || meatLists.length === 0 ? true : false } onClick={() => handleAddProducts()}>Submit Add Product </Button>
+        <Button
+          disabled={
+            foodLists?.length === 0 ||
+            drinkLists?.length === 0 ||
+            meatLists?.length === 0 ||
+            !isFailFetchingProducts
+              ? false
+              : true
+          }
+          onClick={() => handleAddProducts()}
+        >
+          Update Product{" "}
+        </Button>
       </div>
     </StyledDiv>
   );

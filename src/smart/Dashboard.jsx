@@ -7,65 +7,79 @@ import { getAllUsers } from "services/user.service";
 import TableData from "components/common/TableData";
 import { transformAllUsersDataToTable } from "helpers/user.helper";
 import { useNavigate } from "react-router-dom";
-import {getBooking} from "services/booking.service"
-import dayjs from "dayjs"
+import { getBooking } from "services/booking.service";
+import dayjs from "dayjs";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const [orderLists, setOrderLists] = useState([]);
+  const [orderLists, setOrderLists] = useState();
   const { user, setLoading } = useContext(AppContext);
 
   useEffect(() => {
     setLoading(true);
     const init = async () => {
-      const {success, payload} = await getBooking();
-      console.log('in dashboard res', payload)
+      const { success, payload } = await getBooking();
+  //  const transformData = payload.map(item => {
+  //   return {
+  //     ...item, 
+  //     user
+  //   }
+  // })
       if (success) {
-        // const tableData = transformAllUsersDataToTable(allUsersData);
-       
-        console.log('transformData',payload)
         setOrderLists(payload);
       }
     };
     init();
     setLoading(false);
-     // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
   const allOrderColums = [
     {
-      title: "Order id",
-      dataIndex: "_id",
-      key: "_id",
+      title: "Name",
+      dataIndex: "user.name",
+      key: "name",
+      render: (text, record) => record.user.name,
+    },
+    {
+      title: "Email",
+      dataIndex: "user.email",
+      key: "email",
+      render: (text, record) => record.user.email,
+    },
+    {
+      title: "Phone number",
+      dataIndex: "user.phoneNumber",
+      key: "phoneNumber",
+      render: (text, record) => record.user.phoneNumber,
     },
     {
       title: "Date",
       dataIndex: "dateTime",
       key: "dateTime",
     },
- 
+
     {
       title: "Adult amount",
       dataIndex: "adultAmount",
       key: "email",
     },
+    
     {
       title: "Baby amount",
       dataIndex: "babyAmount",
       key: "email",
     },
-    {
-      title: "Specification",
-      dataIndex: "specification",
-      key: "specification",
-    },
+ 
     {
       title: "View",
       dataIndex: "view",
       key: "view",
       width: "5%",
       render: (item, record) => (
-        <Button onClick={() => navigate(`/bookingDetails/${record._id}`)}>View</Button>
+        <Button onClick={() => navigate(`/bookingDetails/${record._id}`)}>
+          View
+        </Button>
       ),
     },
     // {
@@ -84,20 +98,24 @@ const Dashboard = () => {
     //   render: (item, record) => <Button>Delete</Button>,
     // },
   ];
+  const tableDataProps = {
+    columns: allOrderColums,
+    data: orderLists,
+  };
   return (
     <StyledDiv className="dashboard">
       <h1>Dashboard</h1>
       {/* {checkIsAuth() ? ( */}
-        <div>
-          <Row className="myInfo">
-            <Col span={6}>Name: {user.name} </Col>
-            <Col span={6}>Email:{user.email} </Col>
-            <Col span={6}>Phone Number: {user.phoneNumber} </Col>
-          </Row>
-          <TableData columns={allOrderColums} data={orderLists} />
-        </div>
+      <div>
+        <Row className="myInfo">
+          <Col span={6}>Name: {user.name} </Col>
+          <Col span={6}>Email:{user.email} </Col>
+          <Col span={6}>Phone Number: {user.phoneNumber} </Col>
+        </Row>
+        <TableData {...tableDataProps} />
+      </div>
       {/* ) : ( */}
-        {/* <h2>Please Login into the system</h2> */}
+      {/* <h2>Please Login into the system</h2> */}
       {/* )} */}
     </StyledDiv>
   );
