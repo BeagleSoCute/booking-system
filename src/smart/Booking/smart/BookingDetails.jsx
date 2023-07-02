@@ -1,4 +1,4 @@
-import react, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AppContext } from "contexts/app.context";
@@ -23,14 +23,13 @@ const BookingDetails = () => {
     setLoading(true);
     const init = async () => {
       const { success, payload } = await getMyBooking(bookingId);
-      console.log('payload---------',payload.dateTime)
-      console.log('payload',dayjs(payload.dateTime))
       if (success) {
         setBooking(payload);
       }
       setLoading(false);
     };
     init();
+    // eslint-disable-next-line
   }, []);
   const handleUpdateBooking = async (data) => {
     const addIdData = {
@@ -77,7 +76,7 @@ const BookingDetails = () => {
     isSeeDetail: true,
     isEdit: booking && user?.role === "admin" ? true : false,
     onUpdate: handleUpdateBooking,
-    onDelete: handleDeleteBooking
+    onDelete: handleDeleteBooking,
   };
   return (
     <StyledDiv className="booking-details">

@@ -16,15 +16,22 @@ const ProductPage = () => {
   const [meatLists, setMeatLists] = useState([]);
   const [drinkLists, setDrinkLists] = useState([]);
   const [isFailFetchingProducts, setIsfail] = useState(false);
-
+  const transformData = (data) => {
+    return data.map((item) => {
+      return {
+        ...item,
+        id: item._id,
+      };
+    });
+  };
   useEffect(() => {
     const init = async () => {
       setLoading(true);
       const { success, payload } = await getProduct();
       if (success) {
-        setFoodLists(payload.food);
-        setMeatLists(payload.meat);
-        setDrinkLists(payload.drink);
+        setFoodLists(transformData(payload.food));
+        setMeatLists(transformData(payload.meat));
+        setDrinkLists(transformData(payload.drink));
       } else {
         setIsfail(true);
         notification({
@@ -35,6 +42,7 @@ const ProductPage = () => {
       setLoading(false);
     };
     init();
+    // eslint-disable-next-line
   }, []);
 
   const handleDeleteFood = (data) => {

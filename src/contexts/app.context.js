@@ -46,7 +46,8 @@ export const AppProvider = ({ children }) => {
         dispatch({ type: TYPES.SET_ORDER, payload: data });
       },
     };
-  }, [isAuth, user,order, dispatch]);
+    // eslint-disable-next-line
+  }, [isAuth, user, order, dispatch]);
   return (
     <AppContext.Provider value={appContextValue}>
       {children}

@@ -1,8 +1,7 @@
-import React, { Fragment } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Form, Input, InputNumber, Button } from "antd";
-import BookingForm from "smart/Booking/components/BookingForm";
-import AlertMessage from "components/common/AlertMessage";
+
 
 const BookingSection = ({ selectOrder, onFinish }) => {
   const [form] = Form.useForm();
@@ -10,7 +9,6 @@ const BookingSection = ({ selectOrder, onFinish }) => {
     form.resetFields();
     onFinish(value);
   };
-
   return (
     <StyledDiv className="booking-section">
       <Form

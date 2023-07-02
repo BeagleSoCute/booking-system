@@ -14,13 +14,14 @@ const Booking = ({
 }) => {
   useEffect(() => {
     form.setFieldsValue(bookingDetails);
+    // eslint-disable-next-line
   }, [bookingDetails]);
   const [form] = Form.useForm();
   const isDisableFiled = isSeeDetail && !isAdmin;
   const handleUpdateBooking = () => {
     const data = form.getFieldsValue();
-    onUpdate(data)
-  }
+    onUpdate(data);
+  };
   return (
     <StyledDiv className="booking-form">
       <Form
@@ -38,7 +39,7 @@ const Booking = ({
             name="adultAmount"
             rules={[{ required: true, message: "" }]}
           >
-            <InputNumber  disabled={isDisableFiled} className="w-full" />
+            <InputNumber disabled={isDisableFiled} className="w-full" />
           </Form.Item>
           <Form.Item
             label="Baby aged below 4"
@@ -68,8 +69,12 @@ const Booking = ({
           <Form.Item colon={false} className="flex justify-center ">
             {isAdmin ? (
               <>
-                <Button onClick={handleUpdateBooking} className="w-64">Update</Button>
-                <Button onClick={onDelete} className="w-64">Delete</Button>
+                <Button onClick={handleUpdateBooking} className="w-64">
+                  Update
+                </Button>
+                <Button onClick={onDelete} className="w-64">
+                  Delete
+                </Button>
               </>
             ) : (
               <Button className="w-64" htmlType="submit">

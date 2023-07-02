@@ -47,7 +47,6 @@ const Order = () => {
             return { value: item.name, label: item.name };
           }),
         };
-        console.log('transformData(order?.food)',transformData(order?.food))
         setOrderFoodDetails(transformData(order?.food));
         setOrderDrinkDetails(transformData(order?.drink));
         setFoodOptions(transformOptions.food);
@@ -62,6 +61,7 @@ const Order = () => {
       setLoading(false);
     };
     init();
+    // eslint-disable-next-line
   }, []);
 
   const handleAddOrderDrink = (data) => {
