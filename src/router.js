@@ -26,17 +26,17 @@ export const router = createBrowserRouter([
     ),
     //   errorElement: <ErrorPage />,
     children: [
-      {path: "/", element: <BookingPage/>},
-      {path: "/order/:bookingId", element: <Order/>},
+      {path: "/", element: < PrivateRoute><BookingPage/></PrivateRoute> },
+      {path: "/order/:bookingId", element: < PrivateRoute><Order/></PrivateRoute> },
       { path: "/logout", element: <Logout /> },
-      {path: "/bookingDetails/:bookingId", element: <BookingDetails />},
+      {path: "/bookingDetails/:bookingId", element: < PrivateRoute><BookingDetails /></PrivateRoute> },
       {
         path: "/dashboard",
-        element: <Dashboard />,
+        element:  < PrivateRoute><Dashboard /></PrivateRoute>,
       },
       {
         path: "/product/",
-        element: <ProductPage />,
+        element: < PrivateRoute><ProductPage /></PrivateRoute> ,
       },
       {
         path: "/user/:userId",
