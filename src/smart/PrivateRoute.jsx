@@ -17,6 +17,7 @@ const PrivateRoute = ({ children }) => {
       }
     };
     init();
+     // eslint-disable-next-line
   }, []);
   return <Fragment>{isAuth ? children : <Navigate to="/login" />}</Fragment>;
 };
