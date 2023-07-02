@@ -29,7 +29,6 @@ const reducer = (state, action) => {
     case TYPES.SET_NOTIFICATION:
       return { ...state, notificationData: payload };
     case TYPES.SET_ORDER:
-      console.log('payload',payload)
         return { ...state, order: payload };
     default:
       break;

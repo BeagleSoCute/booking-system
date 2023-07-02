@@ -5,9 +5,14 @@ import { AppContext } from "contexts/app.context";
 import TableData from "components/common/TableData";
 import { columnsFood, columnsDrink } from "./tableData";
 import BookingForm from "smart/Booking/components/BookingForm";
-import { getMyBooking } from "services/booking.service";
+import {
+  getMyBooking,
+  updateBooking,
+  deleteBooking,
+} from "services/booking.service";
 import dayjs from "dayjs";
 import { Button } from "antd";
+import { notification } from "helpers/notification.helper";
 
 const BookingDetails = () => {
   const { user, setLoading, setOrder } = useContext(AppContext);
@@ -18,7 +23,8 @@ const BookingDetails = () => {
     setLoading(true);
     const init = async () => {
       const { success, payload } = await getMyBooking(bookingId);
-      console.log('payload', payload)
+      console.log('payload---------',payload.dateTime)
+      console.log('payload',dayjs(payload.dateTime))
       if (success) {
         setBooking(payload);
       }
@@ -26,17 +32,52 @@ const BookingDetails = () => {
     };
     init();
   }, []);
+  const handleUpdateBooking = async (data) => {
+    const addIdData = {
+      ...data,
+      bookingId,
+    };
+    const success = await updateBooking(addIdData);
+    if (success) {
+      notification({
+        type: "success",
+        message: "Update booking successfully",
+      });
+    } else {
+      notification({
+        type: "error",
+        message: "Can not update this booking, Please contact admin!",
+      });
+    }
+  };
+  const handleDeleteBooking = async () => {
+    const success = await deleteBooking(bookingId);
+    if (success) {
+      notification({
+        type: "success",
+        message: "Delete booking successfully",
+      });
+      navigate("/dashboard");
+    } else {
+      notification({
+        type: "error",
+        message: "Can not delete this booking, Please contact admin!",
+      });
+    }
+  };
   const bookingFormProps = {
     bookingDetails: {
       adultAmount: booking?.adultAmount,
       babyAmount: booking?.babyAmount,
-      dateTime: dayjs(booking?.dateTime),
+      dateTime: dayjs(booking?.dateTime, "DD/MM/YYYY HH:mm"),
       specification: booking?.specification,
     },
     isConfirm: false,
     isAdmin: user.role === "admin",
     isSeeDetail: true,
     isEdit: booking && user?.role === "admin" ? true : false,
+    onUpdate: handleUpdateBooking,
+    onDelete: handleDeleteBooking
   };
   return (
     <StyledDiv className="booking-details">
@@ -55,9 +96,9 @@ const BookingDetails = () => {
       <div className="flex justify-center mt-10 ">
         <Button
           onClick={() => {
-            setOrder(booking?.order)
-            navigate(`/order/${bookingId}`)
-          } }
+            setOrder(booking?.order);
+            navigate(`/order/${bookingId}`);
+          }}
           className="w-64"
         >
           Manage order

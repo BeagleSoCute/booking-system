@@ -6,6 +6,8 @@ const Booking = ({
   bookingDetails,
   isConfirm,
   onFinish,
+  onUpdate,
+  onDelete,
   isEdit = true,
   isAdmin = false,
   isSeeDetail = false,
@@ -15,6 +17,10 @@ const Booking = ({
   }, [bookingDetails]);
   const [form] = Form.useForm();
   const isDisableFiled = isSeeDetail && !isAdmin;
+  const handleUpdateBooking = () => {
+    const data = form.getFieldsValue();
+    onUpdate(data)
+  }
   return (
     <StyledDiv className="booking-form">
       <Form
@@ -62,12 +68,12 @@ const Booking = ({
           <Form.Item colon={false} className="flex justify-center ">
             {isAdmin ? (
               <>
-                <Button className="w-64">Update</Button>
-                <Button className="w-64">Delete</Button>
+                <Button onClick={handleUpdateBooking} className="w-64">Update</Button>
+                <Button onClick={onDelete} className="w-64">Delete</Button>
               </>
             ) : (
               <Button className="w-64" htmlType="submit">
-                {isConfirm ? "Order here" : "Confirm"}
+                {isConfirm ? "View your order" : "Confirm"}
               </Button>
             )}
           </Form.Item>

@@ -2,13 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Row, Col, Button } from "antd";
 import { AppContext } from "contexts/app.context";
-import { checkIsAuth } from "helpers/auth.helper";
-import { getAllUsers } from "services/user.service";
 import TableData from "components/common/TableData";
-import { transformAllUsersDataToTable } from "helpers/user.helper";
 import { useNavigate } from "react-router-dom";
 import { getBooking } from "services/booking.service";
-import dayjs from "dayjs";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -18,14 +14,7 @@ const Dashboard = () => {
   useEffect(() => {
     setLoading(true);
     const init = async () => {
-      // const isAdmin = user.role === "admin"
       const { success, payload } = await getBooking();
-  //  const transformData = payload.map(item => {
-  //   return {
-  //     ...item, 
-  //     user
-  //   }
-  // })
       if (success) {
         setOrderLists(payload);
       }
@@ -65,13 +54,13 @@ const Dashboard = () => {
       dataIndex: "adultAmount",
       key: "email",
     },
-    
+
     {
       title: "Baby amount",
       dataIndex: "babyAmount",
       key: "email",
     },
- 
+
     {
       title: "View",
       dataIndex: "view",
@@ -83,21 +72,6 @@ const Dashboard = () => {
         </Button>
       ),
     },
-    // {
-    //   title: "Edit",
-    //   dataIndex: "edit",
-    //   key: "edit",
-    //   width: "5%",
-
-    //   render: (item, record) => <Button>Edit</Button>,
-    // },
-    // {
-    //   title: "Delete",
-    //   dataIndex: "delete",
-    //   key: "delete",
-    //   width: "5%",
-    //   render: (item, record) => <Button>Delete</Button>,
-    // },
   ];
   const tableDataProps = {
     columns: allOrderColums,
@@ -106,18 +80,15 @@ const Dashboard = () => {
   return (
     <StyledDiv className="dashboard">
       <h1>Dashboard</h1>
-      {/* {checkIsAuth() ? ( */}
       <div>
         <Row className="myInfo">
           <Col span={6}>Name: {user.name} </Col>
+          <Col span={6}>Role: {user.role} </Col>
           <Col span={6}>Email:{user.email} </Col>
           <Col span={6}>Phone Number: {user.phoneNumber} </Col>
         </Row>
         <TableData {...tableDataProps} />
       </div>
-      {/* ) : ( */}
-      {/* <h2>Please Login into the system</h2> */}
-      {/* )} */}
     </StyledDiv>
   );
 };

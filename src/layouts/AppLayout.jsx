@@ -45,7 +45,7 @@ const AppLayout = () => {
       <div className="content">
         {loading ? (
           <div className="spin">
-            <Spin size="large">{loading}</Spin>
+            <Spin spinning={loading} size="large">Loading...</Spin>
           </div>
         ) : (
           <><Outlet /></>
