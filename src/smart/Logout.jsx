@@ -8,13 +8,10 @@ import { notification } from "helpers/notification.helper";
 const Logout = () => {
   const navigate = useNavigate();
   const resCheckAuth = checkIsAuth();
-  const { setLoading } =
-    useContext(AppContext);
+  const { setLoading } = useContext(AppContext);
   useEffect(() => {
-    console.log('logout--useEffect----')
-
-    const init = async () => {     
-       setLoading(true);
+    const init = async () => {
+      setLoading(true);
 
       if (!resCheckAuth) {
         notification({
@@ -30,11 +27,11 @@ const Logout = () => {
       if (success) {
         navigate("/login");
       }
-      console.log('logout--end----')
       setLoading(false);
       return;
     };
     init();
+    // eslint-disable-next-line
   }, []);
 };
 

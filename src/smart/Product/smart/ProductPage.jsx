@@ -69,7 +69,6 @@ const ProductPage = () => {
       ...value,
       id,
     };
-    console.log("value", value);
     if (selectOrder === "food") {
       setFoodLists([...foodLists, transformData]);
     } else if (selectOrder === "meat") {
@@ -80,9 +79,7 @@ const ProductPage = () => {
   };
 
   const handleAddProducts = async () => {
-    console.log("handleAddProducts");
     const data = { food: foodLists, drink: drinkLists, meat: meatLists };
-    console.log("kuttt", data);
     const { success } = await addProduct(data);
     if (success) {
       notification({

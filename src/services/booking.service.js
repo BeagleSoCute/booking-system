@@ -28,7 +28,6 @@ export const getBooking = async () => {
 
 export const getMyBooking = async (orderId) => {
   const { success, payload } = await getBookingByIdAPI(orderId);
-  console.log('payloadddd',payload)
   return { success, payload };
 };
 

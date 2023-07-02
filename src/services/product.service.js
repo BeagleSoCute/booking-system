@@ -7,6 +7,5 @@ export const addProduct = async (data) => {
 
 export const getProduct = async () => {
   const { success, payload } = await getProductAPI();
-  console.log("payload from get product are ", payload);
   return { success, payload };
 };
