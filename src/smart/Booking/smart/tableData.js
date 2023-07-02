@@ -6,8 +6,8 @@ export const columnsFood = () => [
     },
     {
       title: 'Choice of meat',
-      dataIndex: 'choiceOfMeat',
-      key: 'choiceOfMeat',
+      dataIndex: 'meat',
+      key: 'meat',
     },
     {
       title: 'Amount',
