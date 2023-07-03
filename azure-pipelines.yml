@@ -16,31 +16,12 @@ steps:
     checkLatest: true
   displayName: 'Install Node.js'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-
 
 - script: |
     npm install
     npm run build
-- task: CopyFiles@2
-  inputs:
-    contents: 'build/**'
-    targetFolder: '$(Build.ArtifactStagingDirectory)'
-    cleanTargetFolder: true
-
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: $(Build.ArtifactStagingDirectory)
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    includeRootFolder: false
-
 - task: PublishBuildArtifacts@1
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    artifactName: 'drop'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
     publishLocation: 'Container'
