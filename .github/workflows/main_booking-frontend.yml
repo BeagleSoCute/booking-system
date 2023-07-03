@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'booking-frontend'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9542E30631D04FB4B2D8E3975966016A }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_26581E9E75784B558C899D6C059C78BE }}
           package: .
