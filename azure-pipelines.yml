@@ -18,8 +18,9 @@ steps:
 - script: |
     npm install
     npm run build
-    - task: NodeTool@0
-      inputs:
-        versionSource: 'spec'
-        versionSpec: '6.x'
+        - task: NodeTool@0
+          inputs:
+            versionSource: 'spec'
+            versionSpec: '6.x'
+            checkLatest: true
   displayName: 'npm install and build'
