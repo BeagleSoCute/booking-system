@@ -28,10 +28,19 @@ steps:
     npm run build
 - task: CopyFiles@2
   inputs:
-    Contents: 'build/**' # Pull the build directory (React)
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    contents: 'build/**'
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
+    cleanTargetFolder: true
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: $(Build.ArtifactStagingDirectory)
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    includeRootFolder: false
 
 - task: PublishBuildArtifacts@1
-  inputs: 
-    pathtoPublish: $(Build.ArtifactStagingDirectory) # dist or build files
-    ArtifactName: 'www' # output artifact named www
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    artifactName: 'drop'
+    publishLocation: 'Container'
