@@ -8,6 +8,7 @@ import { AppContext } from "contexts/app.context";
 
 const Login = () => {
   const navigate = useNavigate();
+  console.log('hello world login')
   const { setLoading, setUser } = useContext(AppContext);
   const handleOnFinish = async (values) => {
     setLoading(true);
