@@ -1,18 +1,13 @@
-import {useContext} from 'react'
 import styled  from "styled-components";
 import LoginForm from "components/login/LoginForm";
 import { login } from "services/auth.service";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "contexts/app.context";
 
 const Login = () => {
-  console.log('hello Im Earth--')
-  const { setLoading} = useContext(AppContext);
+  console.log('hello Im Earth5455555--')
   const navigate = useNavigate();
   const handleOnFinish = async (values) => {
-    setLoading(true);
     const isLoginSuccess = await login(values);
-    setLoading(false)
     if (isLoginSuccess) {
         navigate("/dashboard");
       return;
