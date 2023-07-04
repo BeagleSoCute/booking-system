@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "contexts/app.context";
 
 const Login = () => {
+  console.log('hello Im Earth--')
   const { setLoading} = useContext(AppContext);
   const navigate = useNavigate();
   const handleOnFinish = async (values) => {
