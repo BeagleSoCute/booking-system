@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { logout } from "services/auth.service";
 import { useNavigate } from "react-router-dom";
 import { checkIsAuth } from "helpers/auth.helper";
 import { notification } from "helpers/notification.helper";
@@ -16,12 +15,14 @@ const Logout = () => {
           description:
             "You are not logging in, please login into the system first.",
         });
-        navigate("/login");
+      }else{
+        notification({
+          type: "success",
+          message: "Logout Success",
+        });
+        localStorage.removeItem("token");
       }
-      const success = await logout();
-      if (success) {
-        navigate("/login");
-      }
+      navigate("/login");
     };
     init();
     // eslint-disable-next-line

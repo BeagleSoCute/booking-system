@@ -5,20 +5,25 @@ import { AppContext } from "contexts/app.context";
 import TableData from "components/common/TableData";
 import { useNavigate } from "react-router-dom";
 import { getBooking } from "services/booking.service";
+import { getMyData } from "services/user.service";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [orderLists, setOrderLists] = useState();
-  const { user } = useContext(AppContext);
+  const {user, setUser} = useContext(AppContext);
 
   useEffect(() => {
     const init = async () => {
       const { success, payload } = await getBooking();
-      if(success === "refresh"){
-        return
-      }
       if (success) {
         setOrderLists(payload);
+      }
+      if(user){
+        return
+      }
+      const userData = await getMyData();
+      if(userData.success){
+        setUser(userData.payload)
       }
     };
     init();

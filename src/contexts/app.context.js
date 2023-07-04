@@ -20,9 +20,6 @@ export const AppProvider = ({ children }) => {
     const resCheckAuth = checkIsAuth();
     const init = async () => {
       const { success, userData } = await getMyData();
-      if(success === "refresh"){
-        return
-      }
       if (success) {
         dispatch({ type: TYPES.SET_USER, payload: userData });
       }

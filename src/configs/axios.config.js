@@ -3,15 +3,15 @@ import {
   transformAxiosResponse,
   transformErrorResponse,
 } from "helpers/axios.helper";
-import { refreshToken } from "apis/auth.api";
 import { notification } from "helpers/notification.helper";
 
 const apiInstance = axios.create({
-  baseURL: "https://booking-backend-vscode.azurewebsites.net/api",
-  // baseURL: "/api",
+  // baseURL: "https://booking-backend-vscode.azurewebsites.net/api",
+  baseURL: "/api",
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
+    "x-auth-token": localStorage.getItem("token"),
   },
 });
 
@@ -25,17 +25,11 @@ const onResponseFulfilled = (response) => {
 const onResponseRejected = async (error) => {
   const statusError = error.response?.status;
   if (error?.response && statusError === 401) {
-    const originalRequest = error.config;
-    const { success, status } = await refreshToken();
-    if (success) {
-      return apiInstance(originalRequest);
-    } else if (status === 403) {
-      notification({
-        type: "warning",
-        message: "Please login into the system again.",
-      });
-      return {success: "refresh"}
-    }
+    notification({
+      type: "warning",
+      message: "Please login into the system again.",
+    });
+    // window.location.href = "/logout";
   }
   return transformErrorResponse(error);
 };

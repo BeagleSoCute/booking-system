@@ -1,28 +1,21 @@
-import { useContext } from "react";
-import styled from "styled-components";
+import {useContext} from 'react'
+import styled  from "styled-components";
 import LoginForm from "components/login/LoginForm";
 import { login } from "services/auth.service";
-import { getMyData } from "services/user.service";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "contexts/app.context";
 
 const Login = () => {
+  const { setLoading} = useContext(AppContext);
   const navigate = useNavigate();
-  console.log('hello world login ----- change cookie')
-  const { setLoading, setUser } = useContext(AppContext);
   const handleOnFinish = async (values) => {
     setLoading(true);
     const isLoginSuccess = await login(values);
+    setLoading(false)
     if (isLoginSuccess) {
-      const userRes = await getMyData();
-      setLoading(false);
-      if (userRes.success) {
-        setUser(userRes.userData);
         navigate("/dashboard");
-      }
       return;
     }
-    setLoading(false);
   };
   return (
     <StyledDiv className="login">
