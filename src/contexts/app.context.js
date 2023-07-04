@@ -50,7 +50,7 @@ export const AppProvider = ({ children }) => {
       },
     };
     // eslint-disable-next-line
-  }, [isAuth, loading, user, order, dispatch]);
+  }, [isAuth, user, order, dispatch]);
   return (
     <AppContext.Provider value={appContextValue}>
       {children}
