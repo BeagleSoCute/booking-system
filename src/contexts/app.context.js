@@ -20,6 +20,9 @@ export const AppProvider = ({ children }) => {
     const resCheckAuth = checkIsAuth();
     const init = async () => {
       const { success, userData } = await getMyData();
+      if(success === "refresh"){
+        return
+      }
       if (success) {
         dispatch({ type: TYPES.SET_USER, payload: userData });
       }
@@ -47,7 +50,7 @@ export const AppProvider = ({ children }) => {
       },
     };
     // eslint-disable-next-line
-  }, [isAuth, user, order, dispatch]);
+  }, [isAuth, loading, user, order, dispatch]);
   return (
     <AppContext.Provider value={appContextValue}>
       {children}

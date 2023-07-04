@@ -14,10 +14,12 @@ const Login = () => {
     const isLoginSuccess = await login(values);
     if (isLoginSuccess) {
       const userRes = await getMyData();
+      setLoading(false);
       if (userRes.success) {
         setUser(userRes.userData);
         navigate("/dashboard");
       }
+      return;
     }
     setLoading(false);
   };

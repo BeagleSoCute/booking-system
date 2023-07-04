@@ -26,7 +26,7 @@ const AppLayout = () => {
   const isAuth = checkIsAuth();
   const navigate = useNavigate();
   const handleOnClick = (selected) => {
-    const menus = isAuth && user.role==="admin" ? adminMenu : isAuth ? authenMenu  : notAuthenMenu;
+    const menus = isAuth && user?.role==="admin" ? adminMenu : isAuth ? authenMenu  : notAuthenMenu;
     const result = menus.find((menu) => menu.key === parseInt(selected.key));
     navigate(result.path);
   };
@@ -39,7 +39,7 @@ const AppLayout = () => {
           mode="horizontal"
           defaultSelectedKeys={["0"]}
           onClick={handleOnClick}
-          items={isAuth && user.role==="admin" ? adminMenu : isAuth ? authenMenu  : notAuthenMenu}
+          items={isAuth && user?.role==="admin" ? adminMenu : isAuth ? authenMenu  : notAuthenMenu}
         />
       </Header>
       <div className="content">

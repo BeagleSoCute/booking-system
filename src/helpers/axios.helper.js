@@ -12,7 +12,7 @@ export const transformErrorResponse = async (errResponse) => {
   const { response, message } = errResponse;
   let payload, errorMessage;
   payload = response ? response.data : {};
-  if (response.status === 500 ) {
+  if (response?.status === 500 ) {
     notification({
       type: "error",
       message: "Server error, please contact the admin",
@@ -21,10 +21,9 @@ export const transformErrorResponse = async (errResponse) => {
     errorMessage = payload.error?.msg;
     notification({ type: "error", message: errorMessage });
   }
-
   return {
     payload,
-    status: response.status,
+    status: response?.status,
     errorMessage: message,
     success: false,
   };

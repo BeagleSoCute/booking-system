@@ -39,9 +39,9 @@ const ProductPage = () => {
           message: "Can not get products, Please contact admin!",
         });
       }
-      setLoading(false);
     };
     init();
+    setLoading(false);
     // eslint-disable-next-line
   }, []);
 

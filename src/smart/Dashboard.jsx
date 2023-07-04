@@ -9,18 +9,19 @@ import { getBooking } from "services/booking.service";
 const Dashboard = () => {
   const navigate = useNavigate();
   const [orderLists, setOrderLists] = useState();
-  const { user, setLoading } = useContext(AppContext);
+  const { user } = useContext(AppContext);
 
   useEffect(() => {
-    setLoading(true);
     const init = async () => {
       const { success, payload } = await getBooking();
+      if(success === "refresh"){
+        return
+      }
       if (success) {
         setOrderLists(payload);
       }
     };
     init();
-    setLoading(false);
     // eslint-disable-next-line
   }, []);
 
@@ -82,10 +83,10 @@ const Dashboard = () => {
       <h1>Dashboard</h1>
       <div>
         <Row className="myInfo">
-          <Col span={6}>Name: {user.name} </Col>
-          <Col span={6}>Role: {user.role} </Col>
-          <Col span={6}>Email:{user.email} </Col>
-          <Col span={6}>Phone Number: {user.phoneNumber} </Col>
+          <Col span={6}>Name: {user?.name} </Col>
+          <Col span={6}>Role: {user?.role} </Col>
+          <Col span={6}>Email:{user?.email} </Col>
+          <Col span={6}>Phone Number: {user?.phoneNumber} </Col>
         </Row>
         <TableData {...tableDataProps} />
       </div>

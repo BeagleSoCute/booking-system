@@ -8,6 +8,8 @@ import {
 } from "../apis/booking.api";
 import dayjs from "dayjs";
 
+import axios from 'axios'
+
 export const addBooking = async (data) => {
   const transformData = {
     ...data,
@@ -23,6 +25,8 @@ export const addBooking = async (data) => {
 
 export const getBooking = async () => {
   const { success, payload } = await getBookingAPI();
+  // const res = await axios.get('https://booking-backend-vscode.azurewebsites.net/api/booking/get')
+  // console.log('----',res)
   return { success, payload };
 };
 
