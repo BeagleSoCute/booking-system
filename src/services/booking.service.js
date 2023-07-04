@@ -8,8 +8,6 @@ import {
 } from "../apis/booking.api";
 import dayjs from "dayjs";
 
-import axios from 'axios'
-
 export const addBooking = async (data) => {
   const transformData = {
     ...data,
