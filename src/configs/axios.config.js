@@ -18,7 +18,6 @@ const onRequestFulfilled = (configs = {}) => {
   return configs;
 };
 const onResponseFulfilled = (response) => {
-  console.log('process.env.PRODUCTION_AZURE',process.env.REACT_APP_PRODUCTION)
   return transformAxiosResponse(response);
 };
 

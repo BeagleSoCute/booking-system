@@ -4,7 +4,7 @@ import { login } from "services/auth.service";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  console.log('hello Im Earth5455555--')
+  console.log('process.env.PRODUCTION_AZURE',process.env.REACT_APP_PRODUCTION)
   const navigate = useNavigate();
   const handleOnFinish = async (values) => {
     const isLoginSuccess = await login(values);
