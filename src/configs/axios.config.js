@@ -6,7 +6,7 @@ import {
 import { notification } from "helpers/notification.helper";
 
 const apiInstance = axios.create({
-  baseURL:  "https://booking-backend-vscode.azurewebsites.net/api",
+  baseURL:  "https://amazing-sfogliatella-1f96ed.netlify.app/api",
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
