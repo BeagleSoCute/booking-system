@@ -6,8 +6,7 @@ import {
 import { notification } from "helpers/notification.helper";
 
 const apiInstance = axios.create({
-  baseURL: "https://booking-backend-vscode.azurewebsites.net/api",
- //baseURL: "/api",
+  baseURL: process.env.REACT_APP_PRODUCTION === "azure" ? "https://booking-backend-vscode.azurewebsites.net/api" : '/api',
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
@@ -19,6 +18,7 @@ const onRequestFulfilled = (configs = {}) => {
   return configs;
 };
 const onResponseFulfilled = (response) => {
+  console.log('process.env.PRODUCTION_AZURE',process.env.REACT_APP_PRODUCTION)
   return transformAxiosResponse(response);
 };
 
