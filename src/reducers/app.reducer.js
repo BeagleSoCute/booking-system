@@ -11,7 +11,7 @@ const defaultValue = {
   loading: false,
   isAuth: false,
   order:{},
-  user: {},
+  user: undefined,
   users: [],
 };
 

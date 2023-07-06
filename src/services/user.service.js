@@ -2,10 +2,10 @@ import { getUserApi, getAllUsersApi, getUserDetailsApi } from "apis/user.api";
 
 export const getMyData = async () => {
   const res = await getUserApi();
-if(!res?.success){
+if(!res.success){
   return {success:false}
 }
-  return { success: true, userData: res.payload };
+  return { success: true, payload: res.payload };
 };
 
 export const getAllUsers = async () => {

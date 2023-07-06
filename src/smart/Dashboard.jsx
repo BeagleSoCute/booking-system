@@ -18,18 +18,21 @@ const Dashboard = () => {
       if (success) {
         setOrderLists(payload);
       }
-      if(user){
-        return
-      }
-      const userData = await getMyData();
-      if(userData.success){
-        setUser(userData.payload)
-      }
     };
     init();
     // eslint-disable-next-line
   }, []);
 
+  useEffect(() => {
+    const init = async () => {
+      const userData = await getMyData();
+      if(userData.success){
+        setUser(userData.payload)
+      }
+    };
+      init();
+    // eslint-disable-next-line
+  }, []);
   const allOrderColums = [
     {
       title: "Name",

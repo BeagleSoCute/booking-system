@@ -1,11 +1,10 @@
-import { createContext, useMemo, useReducer, useEffect } from "react";
+import { createContext, useMemo, useReducer } from "react";
 import appReducer from "reducers/app.reducer";
-import { checkIsAuth } from "helpers/auth.helper";
-import { getMyData } from "services/user.service";
+
 export const AppContext = createContext({
   loading: false,
   isAuth: false,
-  user: {},
+  user: undefined,
   order: {},
   setLoading: () => {},
   setUser: () => {},
@@ -15,21 +14,7 @@ export const { reducer, defaultValue, TYPES } = appReducer;
 export const AppProvider = ({ children }) => {
   const [reducerStates, dispatch] = useReducer(reducer, defaultValue);
   const { loading, isAuth, user, order } = reducerStates;
-  useEffect(() => {
-    dispatch({ type: TYPES.SET_LOADING, payload: true });
-    const resCheckAuth = checkIsAuth();
-    const init = async () => {
-      const { success, userData } = await getMyData();
-      if (success) {
-        dispatch({ type: TYPES.SET_USER, payload: userData });
-      }
-    };
-    if (resCheckAuth) {
-      init();
-    }
-    dispatch({ type: TYPES.SET_LOADING, payload: false });
-  }, []);
-
+ 
   const appContextValue = useMemo(() => {
     return {
       loading,
