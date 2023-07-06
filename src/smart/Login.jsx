@@ -4,7 +4,7 @@ import { login } from "services/auth.service";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  console.log('Welcome to login page final');
+  console.log('Welcome to login page final test');
   const navigate = useNavigate();
   const handleOnFinish = async (values) => {
     const isLoginSuccess = await login(values);
