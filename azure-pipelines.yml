@@ -25,6 +25,3 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
-
--  env:
-    REACT_APP_PRODUCTION: 'azure'  
