@@ -14,8 +14,11 @@ const apiInstance = axios.create({
   },
 });
 
-const onRequestFulfilled = (configs = {}) => {
-  return configs;
+const onRequestFulfilled = (configs={}) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    configs.headers["x-auth-token"] = token;
+  }  return configs;
 };
 const onResponseFulfilled = (response) => {
   return transformAxiosResponse(response);
