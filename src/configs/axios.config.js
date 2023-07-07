@@ -6,7 +6,7 @@ import {
 import { notification } from "helpers/notification.helper";
 
 const apiInstance = axios.create({
-  baseURL:  "booking-system.im-aim-thaicuisine.co.nz/api",
+  baseURL:  "https://booking-system.im-aim-thaicuisine.co.nz/api",
   withCredentials: true,
   referrerPolicy: "unsafe_url" ,
   headers: {
