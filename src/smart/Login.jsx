@@ -4,7 +4,7 @@ import { login } from "services/auth.service";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  console.log('Welcome to login on AWS done SSL');
+  console.log('Welcome to login done back-end');
   const navigate = useNavigate();
   const handleOnFinish = async (values) => {
     const isLoginSuccess = await login(values);
