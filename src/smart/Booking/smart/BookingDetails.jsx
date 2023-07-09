@@ -15,18 +15,16 @@ import { Button } from "antd";
 import { notification } from "helpers/notification.helper";
 
 const BookingDetails = () => {
-  const { user, setLoading, setOrder } = useContext(AppContext);
+  const { user, setOrder } = useContext(AppContext);
   const navigate = useNavigate();
   const { bookingId } = useParams();
   const [booking, setBooking] = useState();
   useEffect(() => {
-    setLoading(true);
     const init = async () => {
       const { success, payload } = await getMyBooking(bookingId);
       if (success) {
         setBooking(payload);
       }
-      setLoading(false);
     };
     init();
     // eslint-disable-next-line
