@@ -15,7 +15,7 @@ import { updateOrderBooking } from "services/booking.service";
 const Order = () => {
   const navigate = useNavigate();
   const { bookingId } = useParams();
-  const { order, setLoading } = useContext(AppContext);
+  const { order } = useContext(AppContext);
   const [selectOrder, setSelectOrder] = useState("");
   const [orderDrinkDetails, setOrderDrinkDetails] = useState();
   const [orderFoodDetails, setOrderFoodDetails] = useState();
@@ -33,7 +33,6 @@ const Order = () => {
   };
   useEffect(() => {
     const init = async () => {
-      setLoading(true);
       const { success, payload } = await getProduct();
       if (success) {
         const transformOptions = {
@@ -58,7 +57,6 @@ const Order = () => {
           message: "Can not get products, Please contact admin!",
         });
       }
-      setLoading(false);
     };
     init();
     // eslint-disable-next-line
