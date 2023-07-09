@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button } from "antd";
 import TableData from "components/common/TableData";
@@ -7,10 +7,8 @@ import { columnsFood, columnsMeat } from "../tableContent";
 import { addProduct, getProduct } from "services/product.service";
 import { v4 as uuidv4 } from "uuid";
 import { notification } from "helpers/notification.helper";
-import { AppContext } from "contexts/app.context";
 
 const ProductPage = () => {
-  const { setLoading } = useContext(AppContext);
   const [selectOrder, setSelectOrder] = useState("");
   const [foodLists, setFoodLists] = useState([]);
   const [meatLists, setMeatLists] = useState([]);
@@ -26,7 +24,6 @@ const ProductPage = () => {
   };
   useEffect(() => {
     const init = async () => {
-      setLoading(true);
       const { success, payload } = await getProduct();
       if (success) {
         setFoodLists(transformData(payload.food));
@@ -41,7 +38,6 @@ const ProductPage = () => {
       }
     };
     init();
-    setLoading(false);
     // eslint-disable-next-line
   }, []);
 

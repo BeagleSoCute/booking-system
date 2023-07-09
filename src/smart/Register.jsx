@@ -1,18 +1,13 @@
-import { useContext } from "react";
 import styled from "styled-components";
 import RegisterForm from "components/register/RegisterForm";
 import { register } from "services/register.service";
-import { AppContext } from "contexts/app.context";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { setLoading } = useContext(AppContext);
   const handleOnFinish = async (values) => {
-    setLoading(true);
     const { email, name, password, phoneNumber } = values;
     const isSuccess = await register({ email, name, password, phoneNumber, role:"customer" });
-    setLoading(false);
     if (isSuccess) {
       navigate("/login");
     }
