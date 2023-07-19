@@ -3,6 +3,6 @@ module.exports = {
 
   // Development-specific configurations
   devServer: {
-    allowedHosts: "all",
+    allowedHosts: true,
   },
 };
