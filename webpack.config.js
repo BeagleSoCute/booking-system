@@ -3,6 +3,8 @@ module.exports = {
 
   // Development-specific configurations
   devServer: {
-    allowedHosts: true,
+    allowedHosts: [
+      "http://booking-frontend-vm.australiasoutheast.cloudapp.azure.com/",
+    ],
   },
 };
