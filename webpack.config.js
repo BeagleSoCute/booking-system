@@ -1,11 +1,9 @@
 module.exports = {
-  // Common configurations for both dev and prod...
-
-  // Development-specific configurations
+  // Other webpack configurations...
   devServer: {
     allowedHosts: [
+      ".australiasoutheast.cloudapp.azure.com",
       "booking-frontend-vm.australiasoutheast.cloudapp.azure.com",
-      "http://booking-frontend-vm.australiasoutheast.cloudapp.azure.com/",
     ],
   },
 };
