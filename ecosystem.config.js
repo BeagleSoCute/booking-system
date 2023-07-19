@@ -1,12 +1,15 @@
 module.exports = {
   apps: [
     {
-      name: "booking-frontend", // Replace with your app's name
+      name: "my-react-app",
       script: "npm",
       args: "start",
       interpreter: "none",
       env: {
         NODE_ENV: "production",
+      },
+      hooks: {
+        "post-setup": "npm install",
       },
     },
   ],
