@@ -15,7 +15,7 @@ const ProductPage = () => {
   const [drinkLists, setDrinkLists] = useState([]);
   const [isFailFetchingProducts, setIsfail] = useState(false);
   const transformData = (data) => {
-    return data.map((item) => {
+    return data?.map((item) => {
       return {
         ...item,
         id: item._id,
@@ -26,9 +26,9 @@ const ProductPage = () => {
     const init = async () => {
       const { success, payload } = await getProduct();
       if (success) {
-        setFoodLists(transformData(payload.food));
-        setMeatLists(transformData(payload.meat));
-        setDrinkLists(transformData(payload.drink));
+        setFoodLists(transformData(payload?.food));
+        setMeatLists(transformData(payload?.meat));
+        setDrinkLists(transformData(payload?.drink));
       } else {
         setIsfail(true);
         notification({
