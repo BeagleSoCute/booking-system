@@ -2,8 +2,9 @@ module.exports = {
   // Other webpack configurations...
   devServer: {
     allowedHosts: [
-      ".australiasoutheast.cloudapp.azure.com",
-      "booking-frontend-vm.australiasoutheast.cloudapp.azure.com",
+      "booking-google-cloud-platform.im-aim-thaicuisine.co.nz",
+      ".im-aim-thaicuisine.co.nz",
+      "im-aim-thaicuisine.co.nz"
     ],
   },
 };
