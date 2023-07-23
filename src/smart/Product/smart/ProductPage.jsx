@@ -15,7 +15,10 @@ const ProductPage = () => {
   const [drinkLists, setDrinkLists] = useState([]);
   const [isFailFetchingProducts, setIsfail] = useState(false);
   const transformData = (data) => {
-    return data?.map((item) => {
+    if(!data){
+      return;
+    }
+    return data.map((item) => {
       return {
         ...item,
         id: item._id,

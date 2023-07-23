@@ -24,6 +24,9 @@ const Order = () => {
   const [drinkOptions, setDrinkOptions] = useState();
 
   const transformData = (data) => {
+    if(!data){
+      return;
+    }
     return data.map((item) => {
       return {
         ...item,
@@ -36,21 +39,21 @@ const Order = () => {
       const { success, payload } = await getProduct();
       if (success) {
         const transformOptions = {
-          food: payload.food.map((item) => {
+          food: payload.food?.map((item) => {
             return { value: item.name, label: item.name };
           }),
-          drink: payload.drink.map((item) => {
+          drink: payload.drink?.map((item) => {
             return { value: item.name, label: item.name };
           }),
-          meat: payload.meat.map((item) => {
+          meat: payload.meat?.map((item) => {
             return { value: item.name, label: item.name };
           }),
         };
         setOrderFoodDetails(transformData(order?.food));
         setOrderDrinkDetails(transformData(order?.drink));
-        setFoodOptions(transformOptions.food);
-        setMeatOptions(transformOptions.meat);
-        setDrinkOptions(transformOptions.drink);
+        setFoodOptions(transformOptions?.food);
+        setMeatOptions(transformOptions?.meat);
+        setDrinkOptions(transformOptions?.drink);
       } else {
         notification({
           type: "error",
@@ -88,7 +91,7 @@ const Order = () => {
     setOrderDrinkDetails(result);
   };
   const handleSubmit = async () => {
-    const transformFoodData = orderFoodDetails.map((item) => {
+    const transformFoodData = orderFoodDetails?.map((item) => {
       return {
         amount: item.amount,
         meat: item.meat,
@@ -96,7 +99,7 @@ const Order = () => {
         specification: item.specification,
       };
     });
-    const transformDrinkData = orderDrinkDetails.map((item) => {
+    const transformDrinkData = orderDrinkDetails?.map((item) => {
       return {
         name: item.name,
         amount: item.amount,
